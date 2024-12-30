@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class EnemyMoving : MonoBehaviour
 {
+    [Header("Enemy Moving")]
     [SerializeField] GameObject target;
     [SerializeField] float moveSpeed = 3f;
     [SerializeField] float distance = 1f;
+
+    [Header("Enemy Attacking")]
+    [SerializeField] float attackForce = 10f;
     [SerializeField] float attackDelayTime = 2f;
 
-    private Animator anim;
+    // private Animator anim;
+    private PlayerState playerState;
     private Vector3 moveDirection;
     private bool isAttacking = false;
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
+        playerState = GameObject.FindWithTag("Player").GetComponent<PlayerState>();
+        // anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -29,8 +35,8 @@ public class EnemyMoving : MonoBehaviour
     {
         moveDirection = (target.transform.position - transform.position).normalized;
 
-        anim.SetFloat("Horizontal", moveDirection.x);
-        anim.SetFloat("Vertical", moveDirection.y);
+        // anim.SetFloat("Horizontal", moveDirection.x);
+        // anim.SetFloat("Vertical", moveDirection.y);
     }
 
     private void EnemyMove()
@@ -39,11 +45,11 @@ public class EnemyMoving : MonoBehaviour
         if ((target.transform.position - transform.position).magnitude < distance)
         {
             StartCoroutine(EnemyAttack(target));
-            anim.SetBool("IsWalking", false);
+            // anim.SetBool("IsWalking", false);
             return;
         }
 
-        anim.SetBool("IsWalking", true);
+        // anim.SetBool("IsWalking", true);
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
     }
 
@@ -52,10 +58,13 @@ public class EnemyMoving : MonoBehaviour
         if (!isAttacking)
         {
             isAttacking = true;
-            anim.SetTrigger("IsAttacking");
-            // 타겟 오브젝트의 체력을 깎는 메소드 삽입 예정
+            // anim.SetTrigger("IsAttacking");
+
             yield return new WaitForSeconds(attackDelayTime);
-            anim.ResetTrigger("IsAttacking");
+
+            // 타겟 오브젝트의 체력을 깎는 메소드
+            playerState.DecreaseHealthStat(attackForce);
+            // anim.ResetTrigger("IsAttacking");
             isAttacking = false;
         }
     }
