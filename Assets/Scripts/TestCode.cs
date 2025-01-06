@@ -1,18 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TestCode : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] GameObject timer;
 
-    // Update is called once per frame
-    void Update()
+    public void SetDay()
     {
-        
+        timer.GetComponent<Image>().fillAmount = 0.99f;
     }
 }

@@ -4,23 +4,18 @@ using UnityEngine;
 
 public class EnemyMoving : MonoBehaviour
 {
-    [Header("Enemy Moving")]
     [SerializeField] GameObject target;
     [SerializeField] float moveSpeed = 3f;
     [SerializeField] float distance = 1f;
 
-    [Header("Enemy Attacking")]
-    [SerializeField] float attackForce = 10f;
-    [SerializeField] float attackDelayTime = 2f;
-
     // private Animator anim;
-    private PlayerState playerState;
     private Vector3 moveDirection;
-    private bool isAttacking = false;
+    private ObstacleAttacking attacking;
 
     private void Start()
     {
-        playerState = GameObject.FindWithTag("Player").GetComponent<PlayerState>();
+        target = GameObject.FindWithTag("Player");
+        attacking = GetComponent<ObstacleAttacking>();
         // anim = GetComponent<Animator>();
     }
 
@@ -41,31 +36,15 @@ public class EnemyMoving : MonoBehaviour
 
     private void EnemyMove()
     {
-        // 타겟과 적 오브젝트간 거리가 Epsilon 값보다 작을 경우 적 오브젝트는 제자리에 존재하며 타겟을 공격.
+        // 타겟과 적 오브젝트간 거리가 설정 거리보다 작을 경우 적 오브젝트는 제자리에 존재하며 타겟을 공격.
         if ((target.transform.position - transform.position).magnitude < distance)
         {
-            StartCoroutine(EnemyAttack(target));
+            StartCoroutine(attacking.AttackPlayer(target));
             // anim.SetBool("IsWalking", false);
             return;
         }
 
         // anim.SetBool("IsWalking", true);
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-    }
-
-    IEnumerator EnemyAttack(GameObject attackTarget)
-    {
-        if (!isAttacking)
-        {
-            isAttacking = true;
-            // anim.SetTrigger("IsAttacking");
-
-            yield return new WaitForSeconds(attackDelayTime);
-
-            // 타겟 오브젝트의 체력을 깎는 메소드
-            playerState.DecreaseHealthStat(attackForce);
-            // anim.ResetTrigger("IsAttacking");
-            isAttacking = false;
-        }
     }
 }

@@ -7,7 +7,7 @@ public enum TimeInfo { Day, night }
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    private TimeInfo timeInfo;
+    private TimeInfo timeInfo = TimeInfo.Day;
 
     private void Awake()
     {
@@ -27,5 +27,10 @@ public class GameManager : MonoBehaviour
     public void SetTimeInfo(int info)
     {
         timeInfo = (TimeInfo)info;
+    }
+
+    public TimeInfo GetTimeInfo()
+    {
+        return timeInfo;
     }
 }
