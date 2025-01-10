@@ -5,6 +5,8 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private SpawnManager spawnManager;
+    [SerializeField] private int numberOfAnimal = 10;
+
 
     [Header("Set Spawn Time")]
     [SerializeField] float spawnTime = 1f;
@@ -28,7 +30,11 @@ public class Spawner : MonoBehaviour
             {
                 if (!spawnAnimalOnce)
                 {
-                    spawnManager.AnimalSpawn((int)Random.Range(0f, spawnManager.animalPrefabs.Length));
+                    for (int i = 0; i < numberOfAnimal; i++)
+                    {
+                        spawnManager.AnimalSpawn((int)Random.Range(0f, spawnManager.animalPrefabs.Length));
+                    }
+
                     spawnAnimalOnce = true;
                     currentTime = 0f;
                 }

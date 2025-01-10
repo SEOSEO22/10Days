@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ public class SpawnManager : MonoBehaviour
 
     public GameObject[] animalPrefabs;
     public GameObject[] enemyPrefabs;
-    
+
     private List<GameObject>[] animalPools;
     private List<GameObject>[] enemyPools;
     private List<GameObject> enemySpawnPoint = new List<GameObject>(); // 적 생성 위치 모음
@@ -48,6 +47,7 @@ public class SpawnManager : MonoBehaviour
             if (!obj.activeSelf)
             {
                 select = obj;
+                select.gameObject.transform.position = select.GetComponent<RandomSpawner>().GetRandomSpawnPosition(); // 오브젝트 위치를 랜덤으로 설정
                 select.SetActive(true);
                 break;
             }
@@ -57,6 +57,7 @@ public class SpawnManager : MonoBehaviour
         if (!select)
         {
             select = Instantiate(animalPrefabs[index], animalSpawner.transform);
+            select.gameObject.transform.position = select.GetComponent<RandomSpawner>().GetRandomSpawnPosition(); // 오브젝트 위치를 랜덤으로 설정
             animalPools[index].Add(select);
         }
 
