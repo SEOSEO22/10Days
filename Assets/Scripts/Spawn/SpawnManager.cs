@@ -12,6 +12,7 @@ public class SpawnManager : MonoBehaviour
     private List<GameObject>[] animalPools;
     private List<GameObject>[] enemyPools;
     private List<GameObject> enemySpawnPoint = new List<GameObject>(); // 적 생성 위치 모음
+    private RandomSpawner randomSpawnLocation; // 오브젝트 랜덤 생성 위치
 
     private void Awake()
     {
@@ -30,6 +31,8 @@ public class SpawnManager : MonoBehaviour
         }
         #endregion
 
+        randomSpawnLocation = GetComponent<RandomSpawner>();
+
         for (int i = 0; i < enemySpawner.transform.childCount; i++)
         {
             enemySpawnPoint.Add(enemySpawner.transform.GetChild(i).gameObject);
@@ -47,7 +50,7 @@ public class SpawnManager : MonoBehaviour
             if (!obj.activeSelf)
             {
                 select = obj;
-                select.gameObject.transform.position = select.GetComponent<RandomSpawner>().GetRandomSpawnPosition(); // 오브젝트 위치를 랜덤으로 설정
+                select.gameObject.transform.position = randomSpawnLocation.GetRandomSpawnPosition(); // 오브젝트 위치를 랜덤으로 설정
                 select.SetActive(true);
                 break;
             }
@@ -57,7 +60,7 @@ public class SpawnManager : MonoBehaviour
         if (!select)
         {
             select = Instantiate(animalPrefabs[index], animalSpawner.transform);
-            select.gameObject.transform.position = select.GetComponent<RandomSpawner>().GetRandomSpawnPosition(); // 오브젝트 위치를 랜덤으로 설정
+            select.gameObject.transform.position = randomSpawnLocation.GetRandomSpawnPosition(); // 오브젝트 위치를 랜덤으로 설정
             animalPools[index].Add(select);
         }
 

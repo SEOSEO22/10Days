@@ -5,7 +5,7 @@ using UnityEngine;
 public class RandomSpawner : MonoBehaviour
 {
     [SerializeField] private float minRadius = 20f;
-    [SerializeField] private float maxRadius = 200f;
+    [SerializeField] private float maxRadius = 100f;
 
     public Vector2 GetRandomSpawnPosition()
     {
@@ -26,7 +26,7 @@ public class RandomSpawner : MonoBehaviour
         return randomPosition;
     }
 
-/*    // Gizmos로 반지름 시각화
+    // Gizmos로 반지름 시각화
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow; // minRadius 영역 색상
@@ -34,5 +34,5 @@ public class RandomSpawner : MonoBehaviour
 
         Gizmos.color = Color.red; // maxRadius 영역 색상
         Gizmos.DrawWireSphere(transform.position, maxRadius);
-    }*/
+    }
 }
