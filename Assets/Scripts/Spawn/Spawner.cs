@@ -6,6 +6,7 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private int numberOfAnimal = 10;
+    [SerializeField] private int numberOfTotalResource = 100;
 
 
     [Header("Set Spawn Time")]
@@ -25,8 +26,10 @@ public class Spawner : MonoBehaviour
 
         while (true)
         {
+            TimeInfo currentTimeInfo = GameManager.Instance.GetTimeInfo();
+
             // 撤老 版快
-            if (GameManager.Instance.GetTimeInfo() == TimeInfo.Day)
+            if (currentTimeInfo == TimeInfo.Day)
             {
                 if (!spawnAnimalOnce)
                 {
@@ -35,14 +38,21 @@ public class Spawner : MonoBehaviour
                         spawnManager.AnimalSpawn((int)Random.Range(0f, spawnManager.animalPrefabs.Length));
                     }
 
+                    for (int i = 0; i < numberOfTotalResource; i++)
+                    {
+                        spawnManager.ResourceSpawn((int)Random.Range(0f, spawnManager.resourcePrefabs.Length));
+                    }
+
                     spawnAnimalOnce = true;
                     currentTime = 0f;
                 }
             }
             // 广老 版快
-            else if (GameManager.Instance.GetTimeInfo() == TimeInfo.night)
+            else if (currentTimeInfo == TimeInfo.night)
             {
                 spawnAnimalOnce = false;
+                spawnManager.SetAnimalActiveFalse();
+                spawnManager.SetResourceActiveFalse();
 
                 while (currentTime < totalSpawnTime)
                 {

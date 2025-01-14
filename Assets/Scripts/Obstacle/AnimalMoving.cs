@@ -25,6 +25,11 @@ public class AnimalMoving : MonoBehaviour
         // anim = GetComponent<Animator>();
     }
 
+    private void OnEnable()
+    {
+        isMoving = false;
+    }
+
     private void Update()
     {
         SetDirection();

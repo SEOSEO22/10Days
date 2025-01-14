@@ -11,16 +11,24 @@ public class EnemyMoving : MonoBehaviour
     // private Animator anim;
     private Vector3 moveDirection;
     private ObstacleAttacking attacking;
+    private ObjectHPBar hp;
 
     private void Start()
     {
         target = GameObject.FindWithTag("Player");
         attacking = GetComponent<ObstacleAttacking>();
+        hp = GetComponentInChildren<ObjectHPBar>();
         // anim = GetComponent<Animator>();
+    }
+    private void OnEnable()
+    {
+        hp.SetHPFull();
     }
 
     private void Update()
     {
+        if (hp.GetHP() <= 0) this.gameObject.SetActive(false);
+
         SetDirection();
         EnemyMove();
     }

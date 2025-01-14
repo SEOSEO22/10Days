@@ -23,7 +23,7 @@ public class Timer : MonoBehaviour
 
     private void Start()
     {
-        image = GetComponent<Image>();
+        image = transform.Find("Timer Image").GetComponent<Image>();
         image.fillAmount = 0;
         maxTime = dayMaxTime;
 
