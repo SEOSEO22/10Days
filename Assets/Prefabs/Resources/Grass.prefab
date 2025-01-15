@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8943490927276368648}
   - component: {fileID: 4362945428266212460}
+  - component: {fileID: 3612304643038556247}
   m_Layer: 9
   m_Name: Grass
   m_TagString: Untagged
@@ -85,6 +86,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &3612304643038556247
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7947124038144436847}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.15, y: -0.3}
+  serializedVersion: 2
+  m_Radius: 0.85
 --- !u!1001 &144001463604139630
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172,6 +208,18 @@ PrefabInstance:
     - target: {fileID: 82975344294973855, guid: f03be6946048cff4b9a7c767cfe4dc5f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 503238729472349902, guid: f03be6946048cff4b9a7c767cfe4dc5f, type: 3}
+      propertyPath: m_Color.b
+      value: 0.7433963
+      objectReference: {fileID: 0}
+    - target: {fileID: 503238729472349902, guid: f03be6946048cff4b9a7c767cfe4dc5f, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7433963
+      objectReference: {fileID: 0}
+    - target: {fileID: 503238729472349902, guid: f03be6946048cff4b9a7c767cfe4dc5f, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7433963
       objectReference: {fileID: 0}
     - target: {fileID: 2710514600845883762, guid: f03be6946048cff4b9a7c767cfe4dc5f, type: 3}
       propertyPath: m_AnchorMax.x

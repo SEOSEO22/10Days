@@ -30,18 +30,18 @@ public class PlayerInteracting : MonoBehaviour
         Harvest harvestObject = collision.GetComponent<Harvest>();
         int collisionLayer = collision.gameObject.layer;
 
-        Debug.Log("Trigger");
-
-        if (collisionLayer == LayerMask.NameToLayer("Enemy") || collisionLayer == LayerMask.NameToLayer("Animal"))
+        if (harvestObject != null)
         {
-            StartCoroutine(Attack(collision.gameObject));
-        }
-        else if (collision.gameObject.layer == LayerMask.NameToLayer("Resource"))
-        {
-            StartCoroutine(HarvestObject(collision.gameObject));
+            if (collisionLayer == LayerMask.NameToLayer("Enemy") || collisionLayer == LayerMask.NameToLayer("Animal"))
+            {
+                StartCoroutine(Attack(collision.gameObject));
+            }
+            else if (collision.gameObject.layer == LayerMask.NameToLayer("Resource"))
+            {
+                StartCoroutine(HarvestObject(collision.gameObject));
+            }
         }
 
-        if (harvestObject != null) harvestObject.HarvestObject(collision.gameObject);
         toolCollider.enabled = false;
     }
 
@@ -54,8 +54,10 @@ public class PlayerInteracting : MonoBehaviour
 
             // 타겟 오브젝트의 체력을 깎는 메소드
             ObjectHPBar targetHP = attackTarget.gameObject.GetComponentInChildren<ObjectHPBar>();
-            Debug.Log(targetHP);
             targetHP.Damaged(attackForce);
+            attackTarget.GetComponent<Harvest>().SetHarvestParticle();
+
+            if (targetHP.GetHP() <= 0) attackTarget.GetComponent<Harvest>().HarvestObject(attackTarget);
 
             // anim.ResetTrigger("IsAttacking");
 
@@ -73,8 +75,10 @@ public class PlayerInteracting : MonoBehaviour
 
             // 타겟 오브젝트의 체력을 깎는 메소드
             ObjectHPBar targetHP = harvestTarget.gameObject.GetComponentInChildren<ObjectHPBar>();
-            Debug.Log(targetHP);
             targetHP.Damaged(attackForce);
+            harvestTarget.GetComponent<Harvest>().SetHarvestParticle();
+
+            if (targetHP.GetHP() <= 0) harvestTarget.GetComponent<Harvest>().HarvestObject(harvestTarget);
 
             // anim.ResetTrigger("IsAttacking");
 
