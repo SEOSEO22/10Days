@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 85385868936529071}
   - component: {fileID: 4724044005644920352}
-  - component: {fileID: 5884005219628140821}
+  - component: {fileID: 4384199153106223487}
   m_Layer: 5
   m_Name: HP Bar
   m_TagString: Untagged
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5884005219628140821
+--- !u!114 &4384199153106223487
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

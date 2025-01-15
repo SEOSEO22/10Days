@@ -6,17 +6,21 @@ using UnityEngine.UI;
 public class ObjectHPBar : MonoBehaviour
 {
     [SerializeField] private GameObject target;
-    [SerializeField] private float xPos = 0f;
-    [SerializeField] private float yPos = .7f;
+    [SerializeField] Vector3 offset = new Vector3(0f, -0.7f, 0f);
     private Slider HPBar;
 
-    private void Start()
+    private void Awake()
     {
         HPBar = GetComponent<Slider>();
         target = transform.parent.parent.gameObject;
     }
 
-    private void Update()
+    private void OnEnable()
+    {
+        SetHPFull();
+    }
+
+    private void LateUpdate()
     {
         SetHPBarLocation();
     }
@@ -33,13 +37,13 @@ public class ObjectHPBar : MonoBehaviour
 
     public void Damaged(float damage)
     {
-        HPBar.value -= (damage / 100f);
+        HPBar.value = Mathf.Clamp(HPBar.value - (damage / 100f), 0f, 1f);
     }
 
     private void SetHPBarLocation()
     {
         Vector3 hpTransform =
-            Camera.main.WorldToScreenPoint(new Vector3(target.transform.position.x + xPos, target.transform.position.y - yPos, 0));
+            Camera.main.WorldToScreenPoint(target.transform.position + offset);
         HPBar.GetComponent<RectTransform>().position = hpTransform;
     }
 }
