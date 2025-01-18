@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 0}
-  inventorySize: 20
+  inventoryData: {fileID: 11400000, guid: 72d03d0ea5192a445a35354e3e38f544, type: 2}
 --- !u!70 &7204201045629078977
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
