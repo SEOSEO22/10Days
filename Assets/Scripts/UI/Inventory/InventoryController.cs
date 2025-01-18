@@ -1,68 +1,100 @@
+using Inventory.Model;
+using Inventory.UI;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryController : MonoBehaviour
+namespace Inventory
 {
-    [SerializeField] private UIInventoryPage inventoryUI;
-    [SerializeField] private InventorySO inventoryData;
-
-    private void Start()
+    public class InventoryController : MonoBehaviour
     {
-        PrepareUI();
-        // inventoryData.Initialize();
-    }
+        [SerializeField] private UIInventoryPage inventoryUI;
+        [SerializeField] private InventorySO inventoryData;
 
-    private void PrepareUI()
-    {
-        inventoryUI.InitializeInventoryUI(inventoryData.Size);
-        this.inventoryUI.OnDescriptionRequested += HandleDescriptionRequest;
-        this.inventoryUI.OnSwapItems += HandleSwapItems;
-        this.inventoryUI.OnStartDragging += HandleStartDragging;
-        this.inventoryUI.OnItemActionRequested += HandleActionRequested;
-    }
+        public List<InventoryItem> initialItems = new List<InventoryItem>();
 
-    private void HandleActionRequested(int itemIndex)
-    {
-    }
-
-    private void HandleStartDragging(int itemIndex)
-    {
-    }
-
-    private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
-    {
-    }
-
-    private void HandleDescriptionRequest(int itemIndex)
-    {
-        InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
-
-        if (inventoryItem.IsEmpty)
+        private void Start()
         {
-            inventoryUI.ResetSelection();
-            return;
+            PrepareUI();
+            PrepareInventoryData();
         }
-        Resource item = inventoryItem.item;
-        inventoryUI.UpdateDescription(itemIndex, item.Icon, item.name, item.Description);
-    }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
+        private void PrepareInventoryData()
         {
-            if (!inventoryUI.isActiveAndEnabled)
+            inventoryData.Initialize();
+            inventoryData.OnInventoryUpdated += UpdatInventoryUI;
+
+            foreach (InventoryItem item in initialItems)
             {
-                inventoryUI.Show();
-                foreach (var item in inventoryData.GetCurrentInventoryState())
-                {
-                    inventoryUI.UpdateData(item.Key, item.Value.item.Icon, item.Value.quantity);
-                }
+                if (item.IsEmpty) continue;
+                inventoryData.AddItem(item);
             }
-            else
+        }
+
+        private void UpdatInventoryUI(Dictionary<int, InventoryItem> inventoryState)
+        {
+            inventoryUI.ResetAllItems();
+            foreach (var item in inventoryState)
             {
-                inventoryUI.Hide();
+                inventoryUI.UpdateData(item.Key, item.Value.item.Icon, item.Value.quantity);    
+            }
+        }
+
+        private void PrepareUI()
+        {
+            inventoryUI.InitializeInventoryUI(inventoryData.Size);
+            this.inventoryUI.OnDescriptionRequested += HandleDescriptionRequest;
+            this.inventoryUI.OnSwapItems += HandleSwapItems;
+            this.inventoryUI.OnStartDragging += HandleDragging;
+            this.inventoryUI.OnItemActionRequested += HandleActionRequested;
+        }
+
+        private void HandleActionRequested(int itemIndex)
+        {
+        }
+
+        private void HandleDragging(int itemIndex)
+        {
+            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+
+            if (inventoryItem.IsEmpty) return;
+            inventoryUI.CreatedDraggedItem(inventoryItem.item.Icon, inventoryItem.quantity);
+        }
+
+        private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
+        {
+            inventoryData.SwapItems(itemIndex_1, itemIndex_2);
+        }
+
+        private void HandleDescriptionRequest(int itemIndex)
+        {
+            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+
+            if (inventoryItem.IsEmpty)
+            {
+                inventoryUI.ResetSelection();
+                return;
+            }
+            Resource item = inventoryItem.item;
+            inventoryUI.UpdateDescription(itemIndex, item.Icon, item.DisplayName, item.Description);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (!inventoryUI.isActiveAndEnabled)
+                {
+                    inventoryUI.Show();
+                    foreach (var item in inventoryData.GetCurrentInventoryState())
+                    {
+                        inventoryUI.UpdateData(item.Key, item.Value.item.Icon, item.Value.quantity);
+                    }
+                }
+                else
+                {
+                    inventoryUI.Hide();
+                }
             }
         }
     }

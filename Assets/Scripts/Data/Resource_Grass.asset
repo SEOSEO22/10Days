@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a05a109d3ba65df4db6f54f423a8e2e5, type: 3}
   m_Name: Resource_Grass
   m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <MaxStackSize>k__BackingField: 10
   <DisplayName>k__BackingField: Grass
   <Icon>k__BackingField: {fileID: 21300000, guid: 86b6e727981398a4b9ed43530c656123, type: 3}
   <Description>k__BackingField: Basic Grass for Building Architectures
-  <Value>k__BackingField: 1

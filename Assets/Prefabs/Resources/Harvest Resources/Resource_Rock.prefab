@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2795340958466817072}
   - component: {fileID: 4185555048823888601}
-  - component: {fileID: 5171410313000228136}
   - component: {fileID: -3679987743675691066}
+  - component: {fileID: 5171410313000228136}
   m_Layer: 0
-  m_Name: Resource_Grass
+  m_Name: Resource_Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,6 +86,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-3679987743675691066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6066123189690490983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523dab4a45f3ac64faf0435f6fc57e1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <InventoryItem>k__BackingField: {fileID: 11400000, guid: c01363c1b0ed5be4388fa16c799ab83d, type: 2}
+  <Quantity>k__BackingField: 1
+  duration: 0.3
 --- !u!58 &5171410313000228136
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -121,18 +136,3 @@ CircleCollider2D:
   m_Offset: {x: 0.2, y: -0.2}
   serializedVersion: 2
   m_Radius: 0.8
---- !u!114 &-3679987743675691066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6066123189690490983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 523dab4a45f3ac64faf0435f6fc57e1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 16d6ed3a55b6cdc4cb4d9679c5eae681, type: 2}
-  <Quantity>k__BackingField: 1
-  duration: 0.3
