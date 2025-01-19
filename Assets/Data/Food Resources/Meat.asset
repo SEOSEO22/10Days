@@ -17,7 +17,8 @@ MonoBehaviour:
   <DisplayName>k__BackingField: "\uACE0\uAE30"
   <Icon>k__BackingField: {fileID: 21300000, guid: 1e4cc6bce0544134ea31454c82800a10, type: 3}
   <Description>k__BackingField: "\uBC30\uACE0\uD514\uC744 \uCC44\uC6B8 \uC218 \uC788\uB294
-    \uC74C\uC2DD.\n\uB3D9\uBB3C\uC744 \uC7A1\uC73C\uBA74 \uC77C\uC815 \uAC1C\uC218\uB97C\n\uB4DC\uB78D\uD55C\uB2E4."
+    \uC74C\uC2DD.\n\uB3D9\uBB3C\uC744 \uC7A1\uC73C\uBA74 \uC77C\uC815 \uAC1C\uC218\uB97C\n\uB4DC\uB78D\uD55C\uB2E4.\n\uC6B0\uD074\uB9AD\uC744
+    \uD1B5\uD574 \uBA39\uC744 \uC218 \uC788\uB2E4."
   modifierData:
   - statModifier: {fileID: 11400000, guid: d3c610e711e71db458d21b3b71cbe693, type: 2}
     value: 20

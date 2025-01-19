@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5443976713205590925}
   - component: {fileID: 9116112536505580925}
+  - component: {fileID: -5423089007003797784}
   m_Layer: 0
   m_Name: Meat
   m_TagString: Untagged
@@ -84,3 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-5423089007003797784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2778307638387463750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523dab4a45f3ac64faf0435f6fc57e1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 93ab8fd8e072de347b17236a1b31e582, type: 2}
+  <Quantity>k__BackingField: 1
+  duration: 3

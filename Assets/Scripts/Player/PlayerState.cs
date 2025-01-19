@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ public class PlayerState : MonoBehaviour
 
     private void Start()
     {
-        #region 슬라이더 초기화
+        #region 게이지 초기화
         if (!healthGauge)
         {
             healthGauge = GameObject.FindWithTag("Health Gauge").GetComponent<Image>();
@@ -24,6 +25,10 @@ public class PlayerState : MonoBehaviour
             hungerGauge = GameObject.FindWithTag("Hunger Gauge").GetComponent<Image>();
         }
         #endregion
+
+        SetHPFull();
+        SetHungerFull();
+        GameManager.Instance.SetGaugeText();
     }
 
     public float GetCurrentHealth()
@@ -36,14 +41,26 @@ public class PlayerState : MonoBehaviour
         return hungerGauge.fillAmount;
     }
 
+    public void SetHPFull()
+    {
+        healthGauge.fillAmount = 1;
+    }
+
+    public void SetHungerFull()
+    {
+        hungerGauge.fillAmount = 1;
+    }
+
     public void IncreaseHealthStat(float increaseNum)
     {
         healthGauge.fillAmount += (increaseNum / maxHealth);
+        GameManager.Instance.SetGaugeText();
     }
 
     public void DecreaseHealthStat(float decreaseNum)
     {
         healthGauge.fillAmount -= (decreaseNum / maxHealth);
+        GameManager.Instance.SetGaugeText();
 
         /* 
          * if (healthGauge.value <= 0) {
@@ -55,16 +72,18 @@ public class PlayerState : MonoBehaviour
     public void IncreaseHungerStat(float increaseNum)
     {
         hungerGauge.fillAmount += (increaseNum / maxHunger);
+        GameManager.Instance.SetGaugeText();
     }
 
     public void DecreaseHungerStat(float decreaseNum)
     {
-        hungerGauge.fillAmount -= (decreaseNum / maxHunger);
+        if (hungerGauge.fillAmount <= 0.019f)
+        {
+            DecreaseHealthStat(decreaseNum * (maxHealth / maxHunger));
+            return;
+        }
 
-        /* 
-         * if (hungerGauge.value <= 0) {
-         *      DecreaseHealthStat(???);
-         * }
-         */
+        hungerGauge.fillAmount -= (decreaseNum / maxHunger);
+        GameManager.Instance.SetGaugeText();
     }
 }

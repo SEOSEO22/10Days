@@ -17,6 +17,7 @@ public class Timer : MonoBehaviour
 
     private int timeInfo = (int) TimeInfo.Day;
     private int dayCount = 0;
+    private bool isAllEnemyDead = true;
     private Image image;
 
     public GameObject spotLight;
@@ -41,7 +42,7 @@ public class Timer : MonoBehaviour
 
     private void CalcTime()
     {
-        if (image.fillAmount == 1)
+        if (image.fillAmount == 1 && isAllEnemyDead)
         {
             RestartTimer();
             return;
@@ -57,7 +58,10 @@ public class Timer : MonoBehaviour
         timeInfo = ++dayCount % 2 == 0 ? (int)TimeInfo.Day : (int)TimeInfo.night;
         image.fillAmount = 0;
 
-        if (timeInfo == (int)TimeInfo.Day) maxTime = dayMaxTime;
+        if (timeInfo == (int)TimeInfo.Day) {
+            maxTime = dayMaxTime;
+            GameObject.FindWithTag("Player").GetComponent<PlayerState>().SetHPFull();
+        }
         else maxTime = nightMaxTime;
 
         SetDayCount();

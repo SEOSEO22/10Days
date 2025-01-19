@@ -16,7 +16,7 @@ public class PickUpResources : MonoBehaviour
         {
             int reminder = inventoryData.AddItem(item.InventoryItem, item.Quantity);
 
-            if (reminder == 0) Destroy(collision.gameObject);
+            if (reminder == 0) item.DestroyItem();
             else item.Quantity = reminder;
         }
     }
