@@ -97,6 +97,6 @@ public class Timer : MonoBehaviour
     // 생존 일수 타이머에 표기
     private void SetDayCount()
     {
-        dayCountText.text = "Day " + ((dayCount / 2) + 1);
+        dayCountText.text = "DAY " + ((dayCount / 2) + 1).ToString("D2");
     }
 }

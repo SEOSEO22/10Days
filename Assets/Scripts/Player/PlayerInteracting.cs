@@ -55,7 +55,6 @@ public class PlayerInteracting : MonoBehaviour
             // 타겟 오브젝트의 체력을 깎는 메소드
             ObjectHPBar targetHP = attackTarget.gameObject.GetComponentInChildren<ObjectHPBar>();
             targetHP.Damaged(attackForce);
-            attackTarget.GetComponent<Harvest>().SetHarvestParticle();
 
             if (targetHP.GetHP() <= 0) attackTarget.GetComponent<Harvest>().HarvestObject(attackTarget);
 

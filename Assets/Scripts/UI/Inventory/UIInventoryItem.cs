@@ -50,7 +50,7 @@ namespace Inventory.UI
 
         public void Select()
         {
-            borderImage.color = initSlotColor * .8f;
+            borderImage.color = initSlotColor * .5f;
         }
 
         public void OnPointerEnter(PointerEventData pointerData)

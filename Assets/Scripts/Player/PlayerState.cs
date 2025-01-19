@@ -8,42 +8,42 @@ public class PlayerState : MonoBehaviour
     [SerializeField] float maxHealth = 1000f;
     [SerializeField] float maxHunger = 100f;
 
-    private Slider healthGauge;
-    private Slider hungerGauge;
+    private Image healthGauge;
+    private Image hungerGauge;
 
     private void Start()
     {
         #region 슬라이더 초기화
         if (!healthGauge)
         {
-            healthGauge = GameObject.FindWithTag("Health Gauge").GetComponent<Slider>();
+            healthGauge = GameObject.FindWithTag("Health Gauge").GetComponent<Image>();
         }
 
         if (!hungerGauge)
         {
-            hungerGauge = GameObject.FindWithTag("Hunger Gauge").GetComponent<Slider>();
+            hungerGauge = GameObject.FindWithTag("Hunger Gauge").GetComponent<Image>();
         }
         #endregion
     }
 
     public float GetCurrentHealth()
     {
-        return healthGauge.value;
+        return healthGauge.fillAmount;
     }
 
     public float GetCurrentHunger()
     {
-        return hungerGauge.value;
+        return hungerGauge.fillAmount;
     }
 
     public void IncreaseHealthStat(float increaseNum)
     {
-        healthGauge.value += (increaseNum / maxHealth);
+        healthGauge.fillAmount += (increaseNum / maxHealth);
     }
 
     public void DecreaseHealthStat(float decreaseNum)
     {
-        healthGauge.value -= (decreaseNum / maxHealth);
+        healthGauge.fillAmount -= (decreaseNum / maxHealth);
 
         /* 
          * if (healthGauge.value <= 0) {
@@ -54,12 +54,12 @@ public class PlayerState : MonoBehaviour
 
     public void IncreaseHungerStat(float increaseNum)
     {
-        hungerGauge.value += (increaseNum / maxHunger);
+        hungerGauge.fillAmount += (increaseNum / maxHunger);
     }
 
     public void DecreaseHungerStat(float decreaseNum)
     {
-        hungerGauge.value -= (decreaseNum / maxHunger);
+        hungerGauge.fillAmount -= (decreaseNum / maxHunger);
 
         /* 
          * if (hungerGauge.value <= 0) {

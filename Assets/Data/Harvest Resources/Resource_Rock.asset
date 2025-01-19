@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f8e125b5f3fc5449e496d303e70b3f, type: 3}
+  m_Name: Resource_Rock
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <MaxStackSize>k__BackingField: 10
+  <DisplayName>k__BackingField: "\uB3CC"
+  <Icon>k__BackingField: {fileID: 21300000, guid: 26899231bb9358046a9a3afdd6715f72, type: 3}
+  <Description>k__BackingField: "\uD3EC\uD0D1/\uBC29\uC5B4\uBCBD \uAC74\uC124\uC5D0
+    \n\uC0AC\uC6A9\uD560 \uC218 \uC788\uB294 \uB3CC \uC624\uBE0C\uC81D\uD2B8."

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ResourcePickUp : MonoBehaviour
 {
-    [field : SerializeField] public Resource InventoryItem { get; private set; }
+    [field : SerializeField] public ItemSO InventoryItem { get; private set; }
     [field: SerializeField] public int Quantity { get; set; } = 1;
     // [SerializeField] AudioSource audioSource;
     [SerializeField] float duration = 3f;
