@@ -32,7 +32,7 @@ public class PlayerInteracting : MonoBehaviour
 
         if (harvestObject != null)
         {
-            if (collisionLayer == LayerMask.NameToLayer("Enemy") || collisionLayer == LayerMask.NameToLayer("Animal"))
+            if (collisionLayer == LayerMask.NameToLayer("Enemy") || (collisionLayer == LayerMask.NameToLayer("Animal") && collision is BoxCollider2D))
             {
                 StartCoroutine(Attack(collision.gameObject));
             }

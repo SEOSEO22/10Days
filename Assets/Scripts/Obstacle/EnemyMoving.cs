@@ -7,7 +7,6 @@ public class EnemyMoving : MonoBehaviour
     [SerializeField] GameObject target;
     [SerializeField] float moveSpeed = 3f;
     [SerializeField] float distance = 1f;
-    [SerializeField] private ObjectHPBar hp;
 
     // private Animator anim;
     private Vector3 moveDirection;
@@ -17,14 +16,11 @@ public class EnemyMoving : MonoBehaviour
     {
         target = GameObject.FindWithTag("Player");
         attacking = GetComponent<ObstacleAttacking>();
-        hp = transform.Find("HP Canvas/HP Bar").GetComponent<ObjectHPBar>();
         // anim = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        if (hp.GetHP() <= 0) this.gameObject.SetActive(false);
-
         SetDirection();
         EnemyMove();
     }

@@ -24,4 +24,10 @@ public class GameObjectEmitter : MonoBehaviour
             spawnedObject.transform.position = p.position;
         }
     }
+
+    public void EmitDropItem(GameObject obj)
+    {
+        GameObject spawnedObject = Instantiate(prefab);
+        spawnedObject.transform.position = obj.transform.position;
+    }
 }

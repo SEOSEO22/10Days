@@ -19,6 +19,10 @@ public class Harvest : MonoBehaviour
 
     public void HarvestObject(GameObject obj)
     {
+        if (obj.CompareTag("Animal"))
+        {
+            obj.GetComponent<GameObjectEmitter>().EmitDropItem(obj);
+        }
         obj.SetActive(false);
     }
 }
