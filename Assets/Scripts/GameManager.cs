@@ -11,10 +11,14 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     private TimeInfo timeInfo = TimeInfo.Day;
 
+    // 체력 / 허기 게이지 UI
     private Image healthGauge;
     private Image hungerGauge;
     private TextMeshProUGUI hpText;
     private TextMeshProUGUI hungerText;
+
+    // 적 오브젝트 존재 여부
+    public bool isAllEnemyDead { get; set; } = true;
 
     private void Awake()
     {

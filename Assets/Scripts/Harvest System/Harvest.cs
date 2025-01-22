@@ -16,6 +16,7 @@ public class Harvest : MonoBehaviour
     {
         ps.Emit(emitCount);
     }
+
     public void HarvestObject(GameObject obj)
     {
         obj.SetActive(false);

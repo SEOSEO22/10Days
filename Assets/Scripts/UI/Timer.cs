@@ -17,7 +17,6 @@ public class Timer : MonoBehaviour
 
     private int timeInfo = (int) TimeInfo.Day;
     private int dayCount = 0;
-    private bool isAllEnemyDead = true;
     private Image image;
 
     public GameObject spotLight;
@@ -42,9 +41,16 @@ public class Timer : MonoBehaviour
 
     private void CalcTime()
     {
-        if (image.fillAmount == 1 && isAllEnemyDead)
+        if (image.fillAmount == 1 && GameManager.Instance.isAllEnemyDead)
         {
             RestartTimer();
+            return;
+        }
+
+        if (GameManager.Instance.GetTimeInfo() == TimeInfo.night && GameManager.Instance.isAllEnemyDead)
+        {
+            RestartTimer();
+            SetLightsActive(0);
             return;
         }
 
@@ -58,11 +64,17 @@ public class Timer : MonoBehaviour
         timeInfo = ++dayCount % 2 == 0 ? (int)TimeInfo.Day : (int)TimeInfo.night;
         image.fillAmount = 0;
 
-        if (timeInfo == (int)TimeInfo.Day) {
+        if (timeInfo == (int)TimeInfo.Day)
+        {
             maxTime = dayMaxTime;
             GameObject.FindWithTag("Player").GetComponent<PlayerState>().SetHPFull();
+            GameManager.Instance.isAllEnemyDead = true;
         }
-        else maxTime = nightMaxTime;
+        else
+        {
+            maxTime = nightMaxTime;
+            GameManager.Instance.isAllEnemyDead = false;
+        }
 
         SetDayCount();
         GameManager.Instance.SetTimeInfo(timeInfo);

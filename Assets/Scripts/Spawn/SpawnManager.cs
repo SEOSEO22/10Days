@@ -18,6 +18,9 @@ public class SpawnManager : MonoBehaviour
     private List<GameObject> enemySpawnPoint = new List<GameObject>(); // 적 생성 위치 모음
     private RandomSpawner randomSpawnLocation; // 오브젝트 랜덤 생성 위치
 
+    private bool isEnemySpawned = false;
+    private bool isChecking; // 적 오브젝트 활성화 여부를 체크하고 있는지 확인
+
     private void Awake()
     {
         #region 오브젝트 풀 초기화
@@ -49,6 +52,35 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        // 밤일 경우 적 오브젝트가 모두 비활성화 되었는지 확인
+        if (GameManager.Instance.GetTimeInfo() == TimeInfo.night && !isChecking) CheckEnemyAlive();
+    }
+
+
+    private void CheckEnemyAlive()
+    {
+        if (!isEnemySpawned) return;
+        isChecking = true;
+
+        foreach (List<GameObject> pools in enemyPools)
+        {
+            foreach (GameObject enemy in pools)
+            {
+                if (enemy.activeSelf)
+                {
+                    isChecking = false;
+                    return;
+                }
+            }
+        }
+
+        GameManager.Instance.isAllEnemyDead = true;
+        isChecking = false;
+        isEnemySpawned = false;
+    }
+
     public GameObject AnimalSpawn(int index)
     {
         return Spawn(animalPrefabs, animalPools, animalSpawner, index);
@@ -56,6 +88,7 @@ public class SpawnManager : MonoBehaviour
 
     public GameObject EnemySpawn(int index)
     {
+        isEnemySpawned = true;
         return Spawn(enemyPrefabs, enemyPools, enemySpawner, index);
     }
 
@@ -119,7 +152,7 @@ public class SpawnManager : MonoBehaviour
         return select;
     }
 
-    // 동물 오브젝트 전체 비활성화
+    // 오브젝트 전체 비활성화
     public void SetObjectActiveFalse(List<GameObject>[] pools)
     {
         foreach (List<GameObject> list in pools)

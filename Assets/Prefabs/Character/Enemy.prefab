@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4597186966354354921}
   - component: {fileID: 5731896890778129540}
   - component: {fileID: 4778831750434596373}
+  - component: {fileID: 31050511558184034}
   - component: {fileID: 3998049855410350073}
   - component: {fileID: 1954385702571943507}
   m_Layer: 7
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -40562167, guid: 8a678923224b88244b8221f995452591, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 26c31f30a0662104cb7b99c878ea6c19, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -119,6 +120,19 @@ MonoBehaviour:
   moveSpeed: 3
   distance: 1
   hp: {fileID: 1302364129138562765}
+--- !u!114 &31050511558184034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2329188478879483807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50eda79e26f2b5240962f14337206de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emitCount: 0
 --- !u!70 &3998049855410350073
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -151,8 +165,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.75, y: 1}
+  m_Offset: {x: 0, y: 1.1}
+  m_Size: {x: 1.1, y: 3.2}
   m_Direction: 0
 --- !u!50 &1954385702571943507
 Rigidbody2D:

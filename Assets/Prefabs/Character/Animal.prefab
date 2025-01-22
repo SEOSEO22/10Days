@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -7889920611575372328}
   - component: {fileID: 863384542038068847}
   - component: {fileID: -7024774872585521566}
+  - component: {fileID: 8748107941547636275}
   m_Layer: 8
   m_Name: Animal
   m_TagString: Untagged
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.5188679, g: 0.40383586, b: 0.40383586, a: 1}
+  m_Color: {r: 0.7075472, g: 0.5773852, b: 0.5773852, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -153,6 +154,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 6
+--- !u!114 &8748107941547636275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4593931495394117188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50eda79e26f2b5240962f14337206de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emitCount: 0
 --- !u!1001 &6324189313059514244
 PrefabInstance:
   m_ObjectHideFlags: 0
