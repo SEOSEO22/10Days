@@ -8,6 +8,7 @@ TagManager:
   - Hunger Gauge
   - Enemy
   - Animal
+  - Tile
   layers:
   - Default
   - TransparentFX

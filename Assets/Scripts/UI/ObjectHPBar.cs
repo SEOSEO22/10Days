@@ -25,12 +25,6 @@ public class ObjectHPBar : MonoBehaviour
     {
         SetHPBarLocation();
     }
-
-    public float GetHP()
-    {
-        return HPBar.value;
-    }
-
     public void SetHPFull()
     {
         HPBar.value = 1f;
@@ -39,6 +33,8 @@ public class ObjectHPBar : MonoBehaviour
     public void Damaged(float damage)
     {
         HPBar.value = Mathf.Clamp(HPBar.value - (damage / maxHP), 0f, 1f);
+
+        if (HPBar.value <= 0) target.GetComponent<Harvest>().HarvestObject(target);
     }
 
     private void SetHPBarLocation()

@@ -12,9 +12,10 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] enemyPrefabs;
     public GameObject[] resourcePrefabs;
 
-    private List<GameObject>[] animalPools;
-    private List<GameObject>[] enemyPools;
-    private List<GameObject>[] resourcePools;
+    [HideInInspector]
+    public List<GameObject>[] animalPools;
+    public List<GameObject>[] enemyPools;
+    public List<GameObject>[] resourcePools;
     private List<GameObject> enemySpawnPoint = new List<GameObject>(); // 적 생성 위치 모음
     private RandomSpawner randomSpawnLocation; // 오브젝트 랜덤 생성 위치
 

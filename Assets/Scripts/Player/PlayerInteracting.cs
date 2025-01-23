@@ -56,8 +56,6 @@ public class PlayerInteracting : MonoBehaviour
             ObjectHPBar targetHP = attackTarget.gameObject.GetComponentInChildren<ObjectHPBar>();
             targetHP.Damaged(attackForce);
 
-            if (targetHP.GetHP() <= 0) attackTarget.GetComponent<Harvest>().HarvestObject(attackTarget);
-
             // anim.ResetTrigger("IsAttacking");
 
             yield return new WaitForSeconds(delayTime);
@@ -76,8 +74,6 @@ public class PlayerInteracting : MonoBehaviour
             ObjectHPBar targetHP = harvestTarget.gameObject.GetComponentInChildren<ObjectHPBar>();
             targetHP.Damaged(attackForce);
             harvestTarget.GetComponent<Harvest>().SetHarvestParticle();
-
-            if (targetHP.GetHP() <= 0) harvestTarget.GetComponent<Harvest>().HarvestObject(harvestTarget);
 
             // anim.ResetTrigger("IsAttacking");
 
