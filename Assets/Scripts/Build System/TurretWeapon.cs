@@ -1,3 +1,4 @@
+using Inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,10 +7,9 @@ public enum WeaponState { SearchTarget = 0, AttackToTarget }
 
 public class TurretWeapon : MonoBehaviour
 {
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Transform spawnPoint;
-    [SerializeField] private float attackRate = 2f; // 공격 속도
-    [SerializeField] private float attackRange = 10f; // 공격 범위
+    [SerializeField] private BuildItemSO buildItemSO;   // 건설 아이템 정보
+    [SerializeField] private GameObject projectilePrefab;   // 발사체 프리팹
+    [SerializeField] private Transform spawnPoint;  // 발사체 생성 위치
 
     private GameObject projectileSpawner;
     private List<GameObject> projectilePool;
@@ -17,6 +17,18 @@ public class TurretWeapon : MonoBehaviour
     private WeaponState weaponState = WeaponState.SearchTarget;
     private Transform attackTarget = null;
     private SpawnManager enemySpawner;
+    private InventorySO playerInventory;
+    private Dictionary<int, InventoryItem> currentInventory;
+    private int level = 0;  // 건설 아이템 레벨
+
+    // Info Panel에 표기할 정보
+    public string Name => buildItemSO.buildingItem[level].name;
+    public float Damage => buildItemSO.buildingItem[level].damage;
+    public float Defecne => buildItemSO.buildingItem[level].defence;
+    public float Rate => buildItemSO.buildingItem[level].rate;
+    public float Range => buildItemSO.buildingItem[level].range;
+    public int Level => level + 1;
+    public int MaxLevel => buildItemSO.buildingItem.Length;
 
     private void Awake()
     {
@@ -25,9 +37,10 @@ public class TurretWeapon : MonoBehaviour
         projectilePool = new List<GameObject>();
     }
 
-    public void Setup(SpawnManager enemySpawner)
+    public void Setup(SpawnManager enemySpawner, InventorySO playerInventory)
     {
         this.enemySpawner = enemySpawner;
+        this.playerInventory = playerInventory;
 
         // 최초 상태를 타겟 서칭으로 설정
         ChangeState(WeaponState.SearchTarget);
@@ -46,7 +59,7 @@ public class TurretWeapon : MonoBehaviour
 
         // 시작점과 끝점을 지정하여 선 그리기
         Vector3 start = transform.position;
-        Vector3 end = transform.position + transform.right * attackRange;
+        Vector3 end = transform.position + transform.right * buildItemSO.buildingItem[level].range;
 
         Debug.DrawLine(start, end, Color.red);
     }
@@ -74,7 +87,7 @@ public class TurretWeapon : MonoBehaviour
 
                     float distance = Vector3.Distance(enemy.transform.position, transform.position);
 
-                    if (distance <= attackRange && distance <= closestDistSqr)
+                    if (distance <= buildItemSO.buildingItem[level].range && distance <= closestDistSqr)
                     {
                         closestDistSqr = distance;
                         attackTarget = enemy.transform;
@@ -100,14 +113,14 @@ public class TurretWeapon : MonoBehaviour
 
             float distance = Vector3.Distance(attackTarget.position, transform.position);
 
-            if (distance > attackRange)
+            if (distance > buildItemSO.buildingItem[level].range)
             {
                 attackTarget = null;
                 ChangeState(WeaponState.SearchTarget);
                 break;
             }
 
-            yield return new WaitForSeconds(attackRate);
+            yield return new WaitForSeconds(buildItemSO.buildingItem[level].rate);
 
             SpawnProjectile();
         }
@@ -131,7 +144,7 @@ public class TurretWeapon : MonoBehaviour
                 select = obj;
                 select.gameObject.transform.position = spawnPoint.position;
                 select.SetActive(true);
-                select.GetComponent<Projectile>().Setup(attackTarget);
+                select.GetComponent<Projectile>().Setup(attackTarget, buildItemSO.buildingItem[level].damage);
                 break;
             }
         }
@@ -140,11 +153,64 @@ public class TurretWeapon : MonoBehaviour
         if (!select)
         {
             select = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity, projectileSpawner.transform);
-            select.GetComponent<Projectile>().Setup(attackTarget);
+            select.GetComponent<Projectile>().Setup(attackTarget, buildItemSO.buildingItem[level].damage);
 
             projectilePool.Add(select);
         }
 
         return select;
+    }
+
+    // 건설 오브젝트 업그레이드
+    public bool Upgrade()
+    {
+        currentInventory = playerInventory.GetCurrentInventoryState();
+        bool isPossible = false;
+
+        foreach (KeyValuePair<ItemSO, int> cost in buildItemSO.buildingItem[level + 1].buildCost)
+        {
+            int count = 0;
+
+            foreach (KeyValuePair<int, InventoryItem> inventory in currentInventory)
+            {
+                if (cost.Key == inventory.Value.item)
+                {
+                    count += inventory.Value.quantity;
+                }
+
+                if (count < cost.Value) isPossible = false;
+                else isPossible = true;
+            }
+
+            if (isPossible == false) break;
+        }
+
+        if (isPossible)
+        {
+            level++;
+            UseInventoryItem();
+        }
+
+        return isPossible;
+    }
+
+    // 포탑 생성 시 인벤토리 아이템 감소
+    public void UseInventoryItem()
+    {
+        foreach (KeyValuePair<ItemSO, int> cost in buildItemSO.buildingItem[level].buildCost)
+        {
+            int count = cost.Value;
+
+            foreach (KeyValuePair<int, InventoryItem> inventory in currentInventory)
+            {
+                if (cost.Key == inventory.Value.item)
+                {
+                    playerInventory.RemoveItem(inventory.Key, count);
+                    count -= inventory.Value.quantity;
+                }
+
+                if (count <= 0) break;
+            }
+        }
     }
 }

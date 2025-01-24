@@ -18,6 +18,10 @@ public class ObjectHPBar : MonoBehaviour
 
     private void OnEnable()
     {
+        Color color = target.GetComponent<SpriteRenderer>().color;
+        color.a = 1f;
+        target.GetComponent<SpriteRenderer>().color = color;
+
         SetHPFull();
     }
 
@@ -32,6 +36,8 @@ public class ObjectHPBar : MonoBehaviour
 
     public void Damaged(float damage)
     {
+        StopCoroutine(SetDamageColor());
+        StartCoroutine(SetDamageColor());
         HPBar.value = Mathf.Clamp(HPBar.value - (damage / maxHP), 0f, 1f);
 
         if (HPBar.value <= 0) target.GetComponent<Harvest>().HarvestObject(target);
@@ -42,5 +48,20 @@ public class ObjectHPBar : MonoBehaviour
         Vector3 hpTransform =
             Camera.main.WorldToScreenPoint(target.transform.position + offset);
         HPBar.GetComponent<RectTransform>().position = hpTransform;
+    }
+
+    private IEnumerator SetDamageColor()
+    {
+        Color color = target.GetComponent<SpriteRenderer>().color;
+
+        // 피격 시 투명도 감소
+        color.a = .4f;
+        target.GetComponent<SpriteRenderer>().color = color;
+
+        yield return new WaitForSeconds(.5f);
+
+        // 투명도 원상복구
+        color.a = 1f;
+        target.GetComponent<SpriteRenderer>().color = color;
     }
 }

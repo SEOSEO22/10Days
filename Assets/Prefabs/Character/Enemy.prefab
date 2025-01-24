@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807853da08727a94c9f68e8df3b495c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackForce: 10
+  attackForce: 20
   attackDelayTime: 2
 --- !u!114 &4778831750434596373
 MonoBehaviour:
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 8795833010456946528, guid: 9460868275438f84fa7aafd19334f07a, type: 3}
   moveSpeed: 3
-  distance: 1
+  distance: 2
 --- !u!114 &31050511558184034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,8 +164,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.1}
-  m_Size: {x: 1.1, y: 3.2}
+  m_Offset: {x: 0, y: 1.1731658}
+  m_Size: {x: 1.1, y: 4.836259}
   m_Direction: 0
 --- !u!50 &1954385702571943507
 Rigidbody2D:

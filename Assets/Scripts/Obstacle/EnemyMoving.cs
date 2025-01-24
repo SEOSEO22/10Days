@@ -6,7 +6,7 @@ public class EnemyMoving : MonoBehaviour
 {
     [SerializeField] GameObject target;
     [SerializeField] float moveSpeed = 3f;
-    [SerializeField] float distance = 1f;
+    [SerializeField] float distance = 3f;
 
     // private Animator anim;
     private Vector3 moveDirection;

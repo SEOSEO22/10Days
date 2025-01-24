@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectDetector : MonoBehaviour
 {
     [SerializeField] private TurretSpawner turretSpawner;
+    [SerializeField] private TurretDataViewer turretDataViewer;
     private Camera mainCamera;
     private Ray ray;
     private RaycastHit hit;
@@ -25,6 +26,10 @@ public class ObjectDetector : MonoBehaviour
                 if (hit.transform.CompareTag("Tile"))
                 {
                     turretSpawner.SpawnTurret(hit.transform);
+                }
+                else if (hit.transform.CompareTag("Build Item"))
+                {
+                    turretDataViewer.OnPanel(hit.transform);
                 }
             }
         }

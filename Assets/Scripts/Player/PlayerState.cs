@@ -1,16 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerState : MonoBehaviour
 {
-    [SerializeField] float maxHealth = 1000f;
-    [SerializeField] float maxHunger = 100f;
+    [SerializeField] Image imageScreen;
+    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private float maxHunger = 100f;
+    [SerializeField] private float invincibleTime = 1.5f;
 
     private Image healthGauge;
     private Image hungerGauge;
+    private bool isDamaging = false;
+    private float currentHP;
+    private float currentHunger;
+
+    public float MaxHP => maxHealth;
+    public float CurrentHP => currentHP;
+    public float MaxHunger => maxHunger;
+    public float CurrentHunger => currentHunger;
 
     private void Start()
     {
@@ -29,16 +38,9 @@ public class PlayerState : MonoBehaviour
         SetHPFull();
         SetHungerFull();
         GameManager.Instance.SetGaugeText();
-    }
 
-    public float GetCurrentHealth()
-    {
-        return healthGauge.fillAmount;
-    }
-
-    public float GetCurrentHunger()
-    {
-        return hungerGauge.fillAmount;
+        currentHP = maxHealth;
+        currentHunger = maxHunger;
     }
 
     public void SetHPFull()
@@ -59,14 +61,9 @@ public class PlayerState : MonoBehaviour
 
     public void DecreaseHealthStat(float decreaseNum)
     {
-        healthGauge.fillAmount -= (decreaseNum / maxHealth);
-        GameManager.Instance.SetGaugeText();
+        if (isDamaging) return;
 
-        /* 
-         * if (healthGauge.value <= 0) {
-         *      Die();
-         * }
-         */
+        StartCoroutine(HandleDamage(decreaseNum));
     }
 
     public void IncreaseHungerStat(float increaseNum)
@@ -85,5 +82,43 @@ public class PlayerState : MonoBehaviour
 
         hungerGauge.fillAmount -= (decreaseNum / maxHunger);
         GameManager.Instance.SetGaugeText();
+    }
+
+    private IEnumerator HandleDamage(float decreaseNum)
+    {
+        isDamaging = true;
+
+        // 체력 감소
+        healthGauge.fillAmount -= (decreaseNum / maxHealth);
+        GameManager.Instance.SetGaugeText();
+
+        // 피해 시 화면에 붉은 배경 페이드인/아웃
+        Color color = imageScreen.color;
+        color.a = 0.4f;
+        imageScreen.color = color;
+
+        while ( color.a >= 0.0f)
+        {
+            color.a -= Time.deltaTime;
+            imageScreen.color = color;
+
+            yield return null;
+        }
+
+        // 무적 시간 동안 대기
+        yield return new WaitForSeconds(invincibleTime);
+
+        isDamaging = false;
+
+        // 체력 0 이하 시 처리
+        if (healthGauge.fillAmount <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Player has died.");
     }
 }

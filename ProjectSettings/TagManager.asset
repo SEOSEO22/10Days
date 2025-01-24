@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Animal
   - Tile
+  - Build Item
   layers:
   - Default
   - TransparentFX

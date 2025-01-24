@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] float damage = 2f;
+    [SerializeField] float damage;
     private Movement movement2D;
     private Transform target;
 
-    public void Setup(Transform target)
+    public void Setup(Transform target, float damage)
     {
         movement2D = GetComponent<Movement>();
         this.target = target;
+        this.damage = damage;
     }
 
     private void Update()

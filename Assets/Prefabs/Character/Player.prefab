@@ -319,8 +319,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae79c46e3923963439063b6a43dd6a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imageScreen: {fileID: 0}
   maxHealth: 1000
   maxHunger: 100
+  invincibleTime: 1.5
 --- !u!114 &6644655443935502861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +337,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 0}
   inventoryData: {fileID: 11400000, guid: 72d03d0ea5192a445a35354e3e38f544, type: 2}
-  initialItems: []
+  initialItems:
+  - quantity: 3
+    item: {fileID: 11400000, guid: 93ab8fd8e072de347b17236a1b31e582, type: 2}
+  - quantity: 6
+    item: {fileID: 11400000, guid: c01363c1b0ed5be4388fa16c799ab83d, type: 2}
+  - quantity: 6
+    item: {fileID: 11400000, guid: ced119c6f5cbef84784f570a0acb1477, type: 2}
+  - quantity: 1
+    item: {fileID: 11400000, guid: c01363c1b0ed5be4388fa16c799ab83d, type: 2}
 --- !u!70 &7204201045629078977
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
