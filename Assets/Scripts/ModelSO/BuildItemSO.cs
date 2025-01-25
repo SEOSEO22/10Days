@@ -14,6 +14,7 @@ public class BuildItemSO : ScriptableObject
     public struct BuildingItem
     {
         public string name; // 오브젝트 이름
+        public string type; // 오브젝트 이름
         public float damage; // 공격력
         public float defence; // 방어력
         public float rate; // 공격 속도

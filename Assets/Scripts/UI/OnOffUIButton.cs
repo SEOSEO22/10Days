@@ -7,14 +7,6 @@ public class OnOffUIButton : MonoBehaviour
 {
     [SerializeField] private GameObject[] targets;
 
-    private void Awake()
-    {
-        foreach (GameObject target in targets)
-        {
-            target.SetActive(false);
-        }
-    }
-
     public void OnButtonClickedOnOffUI()
     {
         foreach (GameObject target in targets)

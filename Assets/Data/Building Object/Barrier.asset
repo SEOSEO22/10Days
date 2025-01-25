@@ -12,5 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d02202aad2493846987f64e006231ce, type: 3}
   m_Name: Barrier
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  buildingItem: []
+  prefab: {fileID: 589661844268327759, guid: 9dccf701593b4af48940a8fdd26893b2, type: 3}
+  followPrefab: {fileID: 589661844268327759, guid: 0d61faa7b19a058478d3a732195b299f, type: 3}
+  buildingItem:
+  - name: "\uB098\uBB34 \uBCBD"
+    type: "\uBC29\uBCBD"
+    damage: 0
+    defence: 100
+    rate: 0
+    range: 0
+    buildCost:
+      m_keys:
+      - {fileID: 11400000, guid: 16d6ed3a55b6cdc4cb4d9679c5eae681, type: 2}
+      - {fileID: 11400000, guid: f238a6bb1c65fa047b5d84b77e4989dc, type: 2}
+      m_values: 050000000f000000
+  - name: "\uB3CC \uBCBD"
+    type: "\uBC29\uBCBD"
+    damage: 0
+    defence: 200
+    rate: 0
+    range: 0
+    buildCost:
+      m_keys:
+      - {fileID: 11400000, guid: 16d6ed3a55b6cdc4cb4d9679c5eae681, type: 2}
+      - {fileID: 11400000, guid: c01363c1b0ed5be4388fa16c799ab83d, type: 2}
+      m_values: 030000000a000000
+  - name: "\uCCA0 \uBCBD"
+    type: "\uBC29\uBCBD"
+    damage: 0
+    defence: 300
+    rate: 0
+    range: 0
+    buildCost:
+      m_keys:
+      - {fileID: 11400000, guid: c01363c1b0ed5be4388fa16c799ab83d, type: 2}
+      - {fileID: 11400000, guid: ced119c6f5cbef84784f570a0acb1477, type: 2}
+      m_values: 0500000008000000

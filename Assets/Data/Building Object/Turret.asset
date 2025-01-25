@@ -16,6 +16,7 @@ MonoBehaviour:
   followPrefab: {fileID: 1035282299232350219, guid: 2610fb520e557a14c93d1007ecfd070b, type: 3}
   buildingItem:
   - name: "\uB3CC \uD3EC\uD0D1"
+    type: "\uD3EC\uD0D1"
     damage: 5
     defence: 30
     rate: 2
@@ -26,6 +27,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: ced119c6f5cbef84784f570a0acb1477, type: 2}
       m_values: 0300000001000000
   - name: "\uCCA0 \uD3EC\uD0D1"
+    type: "\uD3EC\uD0D1"
     damage: 10
     defence: 50
     rate: 2

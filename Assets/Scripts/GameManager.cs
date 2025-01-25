@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI hpText;
     private TextMeshProUGUI hungerText;
 
-    // 적 오브젝트 존재 여부
-    public bool isAllEnemyDead { get; set; } = true;
+    public bool isAllEnemyDead { get; set; } = true;    // 적 오브젝트 존재 여부
+    public bool isStructureSelected { get; set; } = false;  // 건축물 선택 여부
 
     private void Awake()
     {

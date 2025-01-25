@@ -13,7 +13,7 @@ public class TurretSpawner : MonoBehaviour
     [SerializeField] SpawnManager enemySpawner;
     [SerializeField] InventorySO playerInventory;
     [SerializeField] GameObject tile;
-    [SerializeField] TurretDataViewer dataViewer;
+    [SerializeField] StructureDataViewer dataViewer;
     [SerializeField] GameObject buildUI; // 건설 시스템을 관리하는 패널
 
     private Dictionary<int, InventoryItem> currentInventory;
@@ -31,6 +31,7 @@ public class TurretSpawner : MonoBehaviour
         if (tile.activeSelf == false)
         {
             isOnBuildButton = false;
+            GameManager.Instance.isStructureSelected = false;
             Destroy(followPrefabClone);
         }
     }
@@ -39,8 +40,10 @@ public class TurretSpawner : MonoBehaviour
     {
         // 버튼을 중복해서 눌렀을 때 임시 건물이 계속 생성되는 것을 막기 위함
         if (isOnBuildButton == true || tile.activeSelf == false) return;
+        if (GameManager.Instance.isStructureSelected == true) return;
 
         isOnBuildButton = true;
+        GameManager.Instance.isStructureSelected = true;
         followPrefabClone = Instantiate(buildItemSO.followPrefab);
         dataViewer.OnPanel(buildItemSO);
 
@@ -106,18 +109,19 @@ public class TurretSpawner : MonoBehaviour
             return;
         }
 
-        Turret turret = tileTranform.GetComponent<Turret>();
+        BuildingTile turret = tileTranform.GetComponent<BuildingTile>();
 
-        if (turret.isTurretBuilding == true) return;
+        if (turret.isStructureBuilding == true) return;
 
         isOnBuildButton = false;
-        turret.isTurretBuilding = true;
+        GameManager.Instance.isStructureSelected = false;
+        turret.isStructureBuilding = true;
         UseInventoryItem();
 
         // Build Turret on Selected Tile
         Vector3 position = tileTranform.position + Vector3.back;
         GameObject clone = Instantiate(buildItemSO.prefab, position, Quaternion.identity, transform);
-        clone.GetComponent<TurretWeapon>().Setup(enemySpawner, playerInventory, tileTranform);
+        clone.GetComponent<TurretStructure>().Setup(enemySpawner, playerInventory, tileTranform);
 
         // 타워 건설을 취소할 수 있는 코루틴 함수 중지
         StopCoroutine(OnBuildCancleSystem());
@@ -132,6 +136,7 @@ public class TurretSpawner : MonoBehaviour
             if (Input.GetMouseButtonDown(1))
             {
                 isOnBuildButton = false;
+                GameManager.Instance.isStructureSelected = false;
                 dataViewer.OffPanel();
                 Destroy(followPrefabClone);
                 break;

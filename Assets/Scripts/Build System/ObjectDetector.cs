@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 public class ObjectDetector : MonoBehaviour
 {
     [SerializeField] private TurretSpawner turretSpawner;
-    [SerializeField] private TurretDataViewer turretDataViewer;
+    [SerializeField] private BarrierSpawner barrierSpawner;
+    [SerializeField] private StructureDataViewer structureDataViewer;
 
     private Camera mainCamera;
     private Ray ray;
@@ -33,11 +34,12 @@ public class ObjectDetector : MonoBehaviour
 
                 if (hit.transform.CompareTag("Tile"))
                 {
-                    turretSpawner.SpawnTurret(hit.transform);
+                    if (turretSpawner.isOnBuildButton) turretSpawner.SpawnTurret(hit.transform);
+                    else if (barrierSpawner.isOnBuildButton) barrierSpawner.SpawnBarrier(hit.transform);
                 }
                 else if (hit.transform.CompareTag("Build Item"))
                 {
-                    turretDataViewer.OnPanel(hit.transform);
+                    structureDataViewer.OnPanel(hit.transform);
                 }
             }
         }
@@ -45,7 +47,8 @@ public class ObjectDetector : MonoBehaviour
         {
             if (hitTranform == null || hitTranform.CompareTag("Build Item") == false)
             {
-                if (!turretSpawner.isOnBuildButton) turretDataViewer.OffPanel();
+                if (turretSpawner.isOnBuildButton == false) structureDataViewer.OffPanel();
+                else if (barrierSpawner.isOnBuildButton == false) structureDataViewer.OffPanel();
             }
 
             hitTranform = null;
