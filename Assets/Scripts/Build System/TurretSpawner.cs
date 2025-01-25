@@ -117,7 +117,7 @@ public class TurretSpawner : MonoBehaviour
         // Build Turret on Selected Tile
         Vector3 position = tileTranform.position + Vector3.back;
         GameObject clone = Instantiate(buildItemSO.prefab, position, Quaternion.identity, transform);
-        clone.GetComponent<TurretWeapon>().Setup(enemySpawner, playerInventory);
+        clone.GetComponent<TurretWeapon>().Setup(enemySpawner, playerInventory, tileTranform);
 
         // 타워 건설을 취소할 수 있는 코루틴 함수 중지
         StopCoroutine(OnBuildCancleSystem());

@@ -20,6 +20,7 @@ public class TurretWeapon : MonoBehaviour
     private InventorySO playerInventory;
     private Dictionary<int, InventoryItem> currentInventory;
     private int level = 0;  // 건설 아이템 레벨
+    private Transform tileTransform; // 건설된 타일의 위치
 
     // Info Panel에 표기할 정보
     public string Name => buildItemSO.buildingItem[level].name;
@@ -29,6 +30,7 @@ public class TurretWeapon : MonoBehaviour
     public float Range => buildItemSO.buildingItem[level].range;
     public int Level => level + 1;
     public int MaxLevel => buildItemSO.buildingItem.Length;
+    public Transform TileTransform => tileTransform;
 
     private void Awake()
     {
@@ -37,10 +39,11 @@ public class TurretWeapon : MonoBehaviour
         projectilePool = new List<GameObject>();
     }
 
-    public void Setup(SpawnManager enemySpawner, InventorySO playerInventory)
+    public void Setup(SpawnManager enemySpawner, InventorySO playerInventory, Transform tileTransform)
     {
         this.enemySpawner = enemySpawner;
         this.playerInventory = playerInventory;
+        this.tileTransform = tileTransform;
 
         // 최초 상태를 타겟 서칭으로 설정
         ChangeState(WeaponState.SearchTarget);

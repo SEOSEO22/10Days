@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2017902251172647620}
   - component: {fileID: -1613752462919662223}
   m_Layer: 0
-  m_Name: MouseFollowTower
+  m_Name: MouseFollowTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

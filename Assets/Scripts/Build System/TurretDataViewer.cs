@@ -17,7 +17,6 @@ public class TurretDataViewer : MonoBehaviour
     [Header("Buttons")]
     [SerializeField] private Button upgradeButton;
     [SerializeField] private Button deleteButton;
-    [SerializeField] private TextMeshProUGUI upgradeButtonText;
 
     [Header("For Cost Item List")]
     [SerializeField] private ShowCostItem itemPrefab;
@@ -106,6 +105,13 @@ public class TurretDataViewer : MonoBehaviour
         {
             // 재료 부족 메세지
         }
+    }
+
+    public void OnClickDelete()
+    {
+        currentTurret.TileTransform.GetComponent<Turret>().isTurretBuilding = false;
+        turretAttackRange.OffAttackRange();
+        Destroy(currentTurret.gameObject);
     }
 
     // 건설 비용 아이템 리스트 초기화
