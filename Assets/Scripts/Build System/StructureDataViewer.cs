@@ -147,7 +147,7 @@ public class StructureDataViewer : MonoBehaviour
 
             if (isSuccess == true)
             {
-                UpdateTurretData();
+                UpdateBarrierData();
                 structureAttackRange.OnAttackRange(currentBarrier.transform.position, currentBarrier.Range);
             }
             else

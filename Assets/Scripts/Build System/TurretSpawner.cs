@@ -3,9 +3,7 @@ using Inventory.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class TurretSpawner : MonoBehaviour
 {
@@ -14,7 +12,7 @@ public class TurretSpawner : MonoBehaviour
     [SerializeField] InventorySO playerInventory;
     [SerializeField] GameObject tile;
     [SerializeField] StructureDataViewer dataViewer;
-    [SerializeField] GameObject buildUI; // 건설 시스템을 관리하는 패널
+    [SerializeField] GameObject[] buildUI; // 건설 시스템을 관리하는 패널
 
     private Dictionary<int, InventoryItem> currentInventory;
     public bool isOnBuildButton = false; // 건설 오브젝트를 선택했는지 확인
@@ -25,7 +23,11 @@ public class TurretSpawner : MonoBehaviour
         if (isOnBuildButton == false && Input.GetKeyDown(KeyCode.Escape))
         {
             tile.SetActive(false);
-            buildUI.SetActive(false);
+
+            foreach (GameObject ui in buildUI)
+            {
+                ui.SetActive(false);
+            }
         }
 
         if (tile.activeSelf == false)
