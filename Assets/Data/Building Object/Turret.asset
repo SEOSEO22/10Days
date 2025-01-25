@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Turret
   m_EditorClassIdentifier: 
   prefab: {fileID: 4462455796022431323, guid: 0fc6b8822c321f541a97e8f240bb02d6, type: 3}
+  followPrefab: {fileID: 1035282299232350219, guid: 2610fb520e557a14c93d1007ecfd070b, type: 3}
   buildingItem:
   - name: "\uB3CC \uD3EC\uD0D1"
     damage: 5

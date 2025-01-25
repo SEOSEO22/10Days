@@ -7,6 +7,7 @@ using UnityEngine;
 public class BuildItemSO : ScriptableObject
 {
     public GameObject prefab; // 건설을 위한 프리팹
+    public GameObject followPrefab; // 임시 건물 프리팹
     public BuildingItem[] buildingItem;
 
     [System.Serializable]

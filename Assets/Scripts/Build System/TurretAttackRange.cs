@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class TurretAttackRange : MonoBehaviour
 {
-    private void Awake()
-    {
-        OffAttackRange();
-    }
-
     public void OnAttackRange(Vector3 position, float range)
     {
         gameObject.SetActive(true);
