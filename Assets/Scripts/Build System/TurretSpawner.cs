@@ -14,10 +14,26 @@ public class TurretSpawner : MonoBehaviour
     [SerializeField] InventorySO playerInventory;
     [SerializeField] GameObject tile;
     [SerializeField] TurretDataViewer dataViewer;
+    [SerializeField] GameObject buildUI; // 건설 시스템을 관리하는 패널
 
     private Dictionary<int, InventoryItem> currentInventory;
     public bool isOnBuildButton = false; // 건설 오브젝트를 선택했는지 확인
     private GameObject followPrefabClone = null; // 임시 건물 사용 완료 시 삭제를 위해 저장하는 변수
+
+    private void Update()
+    {
+        if (isOnBuildButton == false && Input.GetKeyDown(KeyCode.Escape))
+        {
+            tile.SetActive(false);
+            buildUI.SetActive(false);
+        }
+
+        if (tile.activeSelf == false)
+        {
+            isOnBuildButton = false;
+            Destroy(followPrefabClone);
+        }
+    }
 
     public void ReadyToSpawn()
     {
@@ -107,7 +123,6 @@ public class TurretSpawner : MonoBehaviour
         StopCoroutine(OnBuildCancleSystem());
 
         Destroy(followPrefabClone);
-        tile.SetActive(false);
     }
 
     private IEnumerator OnBuildCancleSystem()
@@ -119,7 +134,6 @@ public class TurretSpawner : MonoBehaviour
                 isOnBuildButton = false;
                 dataViewer.OffPanel();
                 Destroy(followPrefabClone);
-                tile.SetActive(false);
                 break;
             }
 
