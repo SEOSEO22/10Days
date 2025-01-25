@@ -39,6 +39,7 @@ public class ObjectDetector : MonoBehaviour
                 }
                 else if (hit.transform.CompareTag("Build Item"))
                 {
+                    structureDataViewer.InitCurrentStructure();
                     structureDataViewer.OnPanel(hit.transform);
                 }
             }

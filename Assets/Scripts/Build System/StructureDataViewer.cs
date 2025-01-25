@@ -39,6 +39,13 @@ public class StructureDataViewer : MonoBehaviour
         }
     }
 
+    public void InitCurrentStructure()
+    {
+        currentBarrier = null;
+        currentTurret = null;
+        structureAttackRange.OffAttackRange();
+    }
+
     public void OnPanel(Transform structure)
     {
         if (structure.GetComponent<TurretStructure>() != null)
@@ -61,7 +68,6 @@ public class StructureDataViewer : MonoBehaviour
         else if (currentBarrier != null)
         {
             UpdateBarrierData();
-            structureAttackRange.OnAttackRange(currentBarrier.transform.position, currentBarrier.Range);
         }
     }
 
@@ -84,10 +90,6 @@ public class StructureDataViewer : MonoBehaviour
             // 공격 범위 표시 Off
             structureAttackRange.OffAttackRange();
         }
-        else if (currentBarrier != null)
-        {
-            structureAttackRange.OffAttackRange();
-        }
     }
 
     private void UpdateTurretData()
@@ -95,6 +97,13 @@ public class StructureDataViewer : MonoBehaviour
         nameText.text = currentTurret.Name;
         damageText.text = "공격력 : " + ((int)currentTurret.Damage).ToString("D2");
         defenceText.text = "방어력 : " + ((int)currentTurret.Defecne).ToString("D2");
+
+        if (GameManager.Instance.GetTimeInfo() == TimeInfo.night)
+        {
+            upgradeButton.interactable = false;
+            deleteButton.interactable = false;
+            return;
+        }
 
         upgradeButton.interactable = currentTurret.Level < currentTurret.MaxLevel ? true : false;
         deleteButton.interactable = true;
@@ -105,6 +114,13 @@ public class StructureDataViewer : MonoBehaviour
         nameText.text = currentBarrier.Name;
         damageText.text = "공격력 : " + ((int)currentBarrier.Damage).ToString("D3");
         defenceText.text = "방어력 : " + ((int)currentBarrier.Defecne).ToString("D3");
+
+        if (GameManager.Instance.GetTimeInfo() == TimeInfo.night)
+        {
+            upgradeButton.interactable = false;
+            deleteButton.interactable = false;
+            return;
+        }
 
         upgradeButton.interactable = currentBarrier.Level < currentBarrier.MaxLevel ? true : false;
         deleteButton.interactable = true;
@@ -148,7 +164,6 @@ public class StructureDataViewer : MonoBehaviour
             if (isSuccess == true)
             {
                 UpdateBarrierData();
-                structureAttackRange.OnAttackRange(currentBarrier.transform.position, currentBarrier.Range);
             }
             else
             {
@@ -163,13 +178,13 @@ public class StructureDataViewer : MonoBehaviour
         {
             currentTurret.TileTransform.GetComponent<BuildingTile>().isStructureBuilding = false;
             Destroy(currentTurret.gameObject);
+            structureAttackRange.OffAttackRange();
         }
         else if (currentBarrier != null)
         {
             currentBarrier.TileTransform.GetComponent<BuildingTile>().isStructureBuilding = false;
             Destroy(currentBarrier.gameObject);
         }
-        structureAttackRange.OffAttackRange();
     }
 
     // 건설 비용 아이템 리스트 초기화
