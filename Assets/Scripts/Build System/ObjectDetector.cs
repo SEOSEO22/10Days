@@ -45,7 +45,7 @@ public class ObjectDetector : MonoBehaviour
         {
             if (hitTranform == null || hitTranform.CompareTag("Build Item") == false)
             {
-                turretDataViewer.OffPanel();
+                if (!turretSpawner.isOnBuildButton) turretDataViewer.OffPanel();
             }
 
             hitTranform = null;

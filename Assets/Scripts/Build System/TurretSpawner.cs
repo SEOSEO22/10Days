@@ -1,5 +1,6 @@
 using Inventory.Model;
 using Inventory.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -15,7 +16,7 @@ public class TurretSpawner : MonoBehaviour
     [SerializeField] TurretDataViewer dataViewer;
 
     private Dictionary<int, InventoryItem> currentInventory;
-    private bool isOnBuildButton = false; // 건설 버튼을 눌렀는지 확인
+    public bool isOnBuildButton = false; // 건설 오브젝트를 선택했는지 확인
     private GameObject followPrefabClone = null; // 임시 건물 사용 완료 시 삭제를 위해 저장하는 변수
 
     public void ReadyToSpawn()
@@ -23,15 +24,12 @@ public class TurretSpawner : MonoBehaviour
         // 버튼을 중복해서 눌렀을 때 임시 건물이 계속 생성되는 것을 막기 위함
         if (isOnBuildButton == true || tile.activeSelf == false) return;
 
-        if (CheckBuildingPossibility() == false)
-        {
-            // 재료 부족 메세지
-            return;
-        }
-
         isOnBuildButton = true;
         followPrefabClone = Instantiate(buildItemSO.followPrefab);
         dataViewer.OnPanel(buildItemSO);
+
+        // 건설을 취소할 수 있는 코루틴 함수
+        StartCoroutine(OnBuildCancleSystem());
     }
 
     // 건설 가능 여부 반환 (재료가 충분한지)
@@ -86,6 +84,12 @@ public class TurretSpawner : MonoBehaviour
     {
         if (isOnBuildButton == false) return;
 
+        if (CheckBuildingPossibility() == false)
+        {
+            // 재료 부족 메세지
+            return;
+        }
+
         Turret turret = tileTranform.GetComponent<Turret>();
 
         if (turret.isTurretBuilding == true) return;
@@ -99,7 +103,27 @@ public class TurretSpawner : MonoBehaviour
         GameObject clone = Instantiate(buildItemSO.prefab, position, Quaternion.identity, transform);
         clone.GetComponent<TurretWeapon>().Setup(enemySpawner, playerInventory);
 
+        // 타워 건설을 취소할 수 있는 코루틴 함수 중지
+        StopCoroutine(OnBuildCancleSystem());
+
         Destroy(followPrefabClone);
         tile.SetActive(false);
+    }
+
+    private IEnumerator OnBuildCancleSystem()
+    {
+        while (true)
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                isOnBuildButton = false;
+                dataViewer.OffPanel();
+                Destroy(followPrefabClone);
+                tile.SetActive(false);
+                break;
+            }
+
+            yield return null;
+        }
     }
 }
