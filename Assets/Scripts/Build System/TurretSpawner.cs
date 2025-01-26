@@ -104,6 +104,7 @@ public class TurretSpawner : MonoBehaviour
     public void SpawnTurret(Transform tileTranform)
     {
         if (isOnBuildButton == false) return;
+        if (GameManager.Instance.GetTimeInfo() == TimeInfo.night) return;
 
         if (CheckBuildingPossibility() == false)
         {

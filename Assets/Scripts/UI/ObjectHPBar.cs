@@ -8,7 +8,10 @@ public class ObjectHPBar : MonoBehaviour
     [SerializeField] private GameObject target;
     [SerializeField] Vector3 offset = new Vector3(0f, -0.7f, 0f);
     [SerializeField] float maxHP = 30f;
+    [SerializeField] private float invincibleTime = 1.5f;
+
     private Slider HPBar;
+    private bool isDamaging = false;
 
     private void Awake()
     {
@@ -21,6 +24,7 @@ public class ObjectHPBar : MonoBehaviour
         Color color = target.GetComponent<SpriteRenderer>().color;
         color.a = 1f;
         target.GetComponent<SpriteRenderer>().color = color;
+        isDamaging = false;
 
         SetHPFull();
     }
@@ -36,11 +40,23 @@ public class ObjectHPBar : MonoBehaviour
 
     public void Damaged(float damage)
     {
+        if (target.CompareTag("Build Item") && isDamaging) return;
+        if (target.activeSelf == false) return;
+
+        isDamaging = true;
+
+        HPBar.value = Mathf.Clamp(HPBar.value - (damage / maxHP), 0f, 1f);
+        if (HPBar.value <= 0)
+        {
+            target.GetComponent<Harvest>().HarvestObject(target);
+            isDamaging = false;
+            return;
+        }
+
         StopCoroutine(SetDamageColor());
         StartCoroutine(SetDamageColor());
-        HPBar.value = Mathf.Clamp(HPBar.value - (damage / maxHP), 0f, 1f);
 
-        if (HPBar.value <= 0) target.GetComponent<Harvest>().HarvestObject(target);
+        isDamaging = false;
     }
 
     private void SetHPBarLocation()
@@ -58,7 +74,15 @@ public class ObjectHPBar : MonoBehaviour
         color.a = .4f;
         target.GetComponent<SpriteRenderer>().color = color;
 
-        yield return new WaitForSeconds(.5f);
+        if (target.CompareTag("Build Item"))
+        {
+            // 무적 시간 동안 대기
+            yield return new WaitForSeconds(invincibleTime);
+        }
+        else
+        {
+            yield return new WaitForSeconds(.5f);
+        }
 
         // 투명도 원상복구
         color.a = 1f;
