@@ -14,6 +14,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private float maxTime = 600f;
     [SerializeField] private Volume ppv; // Æ÷½ºÆ® ÇÁ·Î¼¼½Ì º¼·ý
     [SerializeField] private TextMeshProUGUI dayCountText;
+    [SerializeField] private SpawnMachineParts spawnMachineParts;
 
     private int timeInfo = (int) TimeInfo.Day;
     private int dayCount = 0;
@@ -69,11 +70,21 @@ public class Timer : MonoBehaviour
             maxTime = dayMaxTime;
             GameObject.FindWithTag("Player").GetComponent<PlayerState>().SetHPFull();
             GameManager.Instance.isAllEnemyDead = true;
+
+            if (5 < ((dayCount / 2) + 1) && ((dayCount / 2) + 1) <= 10)
+            {
+                spawnMachineParts.SpawnPart();
+            }
         }
         else
         {
             maxTime = nightMaxTime;
             GameManager.Instance.isAllEnemyDead = false;
+
+            if (5 < ((dayCount / 2) + 1) && ((dayCount / 2) + 1) <= 10)
+            {
+                spawnMachineParts.DestroyPart();
+            }
         }
 
         SetDayCount();
