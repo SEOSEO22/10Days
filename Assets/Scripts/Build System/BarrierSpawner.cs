@@ -17,6 +17,14 @@ public class BarrierSpawner : MonoBehaviour
     public bool isOnBuildButton = false; // 건설 오브젝트를 선택했는지 확인
     private GameObject followPrefabClone = null; // 임시 건물 사용 완료 시 삭제를 위해 저장하는 변수
 
+    private void Start()
+    {
+        if (DataManager.Instance.IsSaveFileExist())
+        {
+            ReSpawnBarrier();
+        }
+    }
+
     private void Update()
     {
         if (isOnBuildButton == false && Input.GetKeyDown(KeyCode.Escape))
@@ -35,8 +43,6 @@ public class BarrierSpawner : MonoBehaviour
             GameManager.Instance.isStructureSelected = false;
             Destroy(followPrefabClone);
         }
-
-        DataManager.Instance.currentGameData.barriers.SetTurretData(GetComponentsInChildren<BarrierStructure>().ToList());
     }
 
     public void ReadyToSpawn()
@@ -131,6 +137,20 @@ public class BarrierSpawner : MonoBehaviour
         StopCoroutine(OnBuildCancleSystem());
 
         Destroy(followPrefabClone);
+    }
+
+    // 이어 하기 시 이미 생성된 포탑 재생성
+    public void ReSpawnBarrier()
+    {
+        for (int i = 0; i < DataManager.Instance.currentGameData.barriersData.barriers.Count; i++)
+        {
+            // Build Turret on Selected Tile
+            Vector3 position = DataManager.Instance.currentGameData.barriersData.barriers[i].tileTransform + Vector3.back;
+            GameObject clone = Instantiate(buildItemSO.prefab, position, Quaternion.identity, transform);
+            clone.GetComponent<BarrierStructure>().Setup(playerInventory, clone.transform);
+            clone.GetComponent<BarrierStructure>().SetLevel(DataManager.Instance.currentGameData.barriersData.barriers[i].level);
+            clone.GetComponent<BarrierStructure>().GetObjectAtPosition(DataManager.Instance.currentGameData.barriersData.barriers[i].tileTransform - Vector3.back, "Tile", .1f);
+        }
     }
 
     private IEnumerator OnBuildCancleSystem()

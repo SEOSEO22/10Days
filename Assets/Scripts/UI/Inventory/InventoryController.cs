@@ -24,11 +24,11 @@ namespace Inventory
             inventoryData.Initialize();
             inventoryData.OnInventoryUpdated += UpdatInventoryUI;
 
-            foreach (InventoryItem item in initialItems)
+            /*foreach (InventoryItem item in initialItems)
             {
                 if (item.IsEmpty) continue;
                 inventoryData.AddItem(item);
-            }
+            }*/
         }
 
         private void UpdatInventoryUI(Dictionary<int, InventoryItem> inventoryState)

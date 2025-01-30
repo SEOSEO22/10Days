@@ -16,8 +16,16 @@ public class TurretSpawner : MonoBehaviour
     [SerializeField] GameObject[] buildUI; // 건설 시스템을 관리하는 패널
 
     private Dictionary<int, InventoryItem> currentInventory;
-    public bool isOnBuildButton = false; // 건설 오브젝트를 선택했는지 확인
     private GameObject followPrefabClone = null; // 임시 건물 사용 완료 시 삭제를 위해 저장하는 변수
+    public bool isOnBuildButton = false; // 건설 오브젝트를 선택했는지 확인
+
+    private void Start()
+    {
+        if (DataManager.Instance.IsSaveFileExist())
+        {
+            ReSpawnTurret();
+        }
+    }
 
     private void Update()
     {
@@ -37,8 +45,6 @@ public class TurretSpawner : MonoBehaviour
             GameManager.Instance.isStructureSelected = false;
             Destroy(followPrefabClone);
         }
-
-        DataManager.Instance.currentGameData.turrets.SetTurretData(GetComponentsInChildren<TurretStructure>().ToList());
     }
 
     public void ReadyToSpawn()
@@ -136,22 +142,17 @@ public class TurretSpawner : MonoBehaviour
     }
 
     // 이어 하기 시 이미 생성된 포탑 재생성
-    public void ReSpawnTurret(Transform tileTranform)
+    public void ReSpawnTurret()
     {
-        BuildingTile turret = tileTranform.GetComponent<BuildingTile>();
-
-        if (turret.isStructureBuilding == true) return;
-
-        isOnBuildButton = false;
-        GameManager.Instance.isStructureSelected = false;
-        turret.isStructureBuilding = true;
-        UseInventoryItem();
-
-        // Build Turret on Selected Tile
-        Vector3 position = tileTranform.position + Vector3.back;
-        GameObject clone = Instantiate(buildItemSO.prefab, position, Quaternion.identity, transform);
-        clone.GetComponent<TurretStructure>().Setup(enemySpawner, playerInventory, tileTranform);
-
+        for (int i = 0; i < DataManager.Instance.currentGameData.turretsData.turrets.Count; i++)
+        {
+            // Build Turret on Selected Tile
+            Vector3 position = DataManager.Instance.currentGameData.turretsData.turrets[i].tileTransform + Vector3.back;
+            GameObject clone = Instantiate(buildItemSO.prefab, position, Quaternion.identity, transform);
+            clone.GetComponent<TurretStructure>().Setup(enemySpawner, playerInventory, clone.transform);
+            clone.GetComponent<TurretStructure>().SetLevel(DataManager.Instance.currentGameData.turretsData.turrets[i].level);
+            clone.GetComponent<TurretStructure>().GetObjectAtPosition(DataManager.Instance.currentGameData.turretsData.turrets[i].tileTransform - Vector3.back, "Tile", .1f);
+        }
     }
 
     private IEnumerator OnBuildCancleSystem()

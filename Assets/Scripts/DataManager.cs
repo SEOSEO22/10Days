@@ -63,26 +63,62 @@ public class InventoryItemWrapper
 }
 
 [System.Serializable]
-public class TurretData
+public class TurretsData
 {
     // 건설 오브젝트 정보
-    public List<TurretStructure> turrets;
+    public List<TurretInfoData> turrets = new List<TurretInfoData>();
 
     public void SetTurretData(List<TurretStructure> currentTurrets)
     {
-        turrets = new List<TurretStructure>(currentTurrets);
+        turrets.Clear();
+
+        foreach (var turret in currentTurrets)
+        {
+            turrets.Add(new TurretInfoData(turret.Level - 1, turret.TileTransform.position));
+        }
     }
 }
 
 [System.Serializable]
-public class BarrierData
+public class TurretInfoData
+{
+    public int level;
+    public Vector3 tileTransform;
+
+    public TurretInfoData(int level, Vector3 tileTransform)
+    {
+        this.level = level;
+        this.tileTransform = tileTransform;
+    }
+}
+
+[System.Serializable]
+public class BarriersData
 {
     // 건설 오브젝트 정보
-    public List<BarrierStructure> barriers;
+    public List<BarrierInfoData> barriers = new List<BarrierInfoData>();
 
-    public void SetTurretData(List<BarrierStructure> currentBarriers)
+    public void SetBarrierData(List<BarrierStructure> currentBarriers)
     {
-        barriers = new List<BarrierStructure>(currentBarriers);
+        barriers.Clear();
+
+        foreach (var barrier in currentBarriers)
+        {
+            barriers.Add(new BarrierInfoData(barrier.Level - 1, barrier.TileTransform.position));
+        }
+    }
+}
+
+[System.Serializable]
+public class BarrierInfoData
+{
+    public int level;
+    public Vector3 tileTransform;
+
+    public BarrierInfoData(int level, Vector3 tileTransform)
+    {
+        this.level = level;
+        this.tileTransform = tileTransform;
     }
 }
 
@@ -103,11 +139,11 @@ public class TimeData
 [System.Serializable]
 public class GameData
 {
-    public PlayerData playerStat = new PlayerData();
-    public PlayerInventoryData inventory = new PlayerInventoryData();
-    public TurretData turrets = new TurretData();
-    public BarrierData barriers = new BarrierData();
-    public TimeData dayCount = new TimeData();
+    public PlayerData playerStatData = new PlayerData();
+    public PlayerInventoryData inventoryData = new PlayerInventoryData();
+    public TurretsData turretsData = new TurretsData();
+    public BarriersData barriersData = new BarriersData();
+    public TimeData dayCountData = new TimeData();
 }
 
 public class DataManager : MonoBehaviour
@@ -134,11 +170,6 @@ public class DataManager : MonoBehaviour
         path = Application.persistentDataPath + "/saveData";
     }
 
-    private void Start()
-    {
-
-    }
-
     public void SaveData()
     {
         string data = JsonUtility.ToJson(currentGameData);
@@ -147,12 +178,25 @@ public class DataManager : MonoBehaviour
 
     public void LoadData()
     {
-        string data = File.ReadAllText(path);
-        currentGameData = JsonUtility.FromJson<GameData>(data);
+        if (File.Exists(path))
+        {
+            string data = File.ReadAllText(path);
+            currentGameData = JsonUtility.FromJson<GameData>(data);
+        }
+    }
+
+    public bool IsSaveFileExist()
+    {
+        return File.Exists(path);
     }
 
     public void DataClear()
     {
         currentGameData = new GameData();
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
     }
 }

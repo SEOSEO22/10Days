@@ -38,19 +38,21 @@ public class GameManager : MonoBehaviour
         hungerGauge = GameObject.FindWithTag("Hunger Gauge").GetComponent<Image>();
         hpText = healthGauge.transform.parent.GetComponentInChildren<TextMeshProUGUI>();
         hungerText = hungerGauge.transform.parent.GetComponentInChildren<TextMeshProUGUI>();
+
+        timeInfo = DataManager.Instance.currentGameData.dayCountData.timeInfo;
     }
 
     public void SetGaugeText()
     {
         hpText.text = ((int)(healthGauge.fillAmount * 100)).ToString("D3") + " / 100";
         hungerText.text = ((int)(hungerGauge.fillAmount * 100)).ToString("D3") + " / 100";
-
-        SavePlayerStatData();
     }
 
     public void SetTimeInfo(int info)
     {
         timeInfo = (TimeInfo)info;
+
+        SavePlayerStatData();
         DataManager.Instance.SaveData();
     }
 
@@ -61,6 +63,6 @@ public class GameManager : MonoBehaviour
 
     private void SavePlayerStatData()
     {
-        DataManager.Instance.currentGameData.playerStat.SetPlayerData(healthGauge.fillAmount, hungerGauge.fillAmount);
+        DataManager.Instance.currentGameData.playerStatData.SetPlayerData(healthGauge.fillAmount, hungerGauge.fillAmount);
     }
 }

@@ -37,25 +37,40 @@ public class PlayerState : MonoBehaviour
 
         SetHPFull();
         SetHungerFull();
-        GameManager.Instance.SetGaugeText();
 
-        currentHP = maxHealth;
-        currentHunger = maxHunger;
+        if (DataManager.Instance.IsSaveFileExist())
+        {
+            currentHP = DataManager.Instance.currentGameData.playerStatData.currentHP;
+            currentHunger = DataManager.Instance.currentGameData.playerStatData.currentHunger;
+
+            healthGauge.fillAmount = currentHP;
+            hungerGauge.fillAmount = currentHunger;
+        }
+        else
+        {
+            currentHP = maxHealth;
+            currentHunger = maxHunger;
+        }
+
+        GameManager.Instance.SetGaugeText();
     }
 
     public void SetHPFull()
     {
         healthGauge.fillAmount = 1;
+        currentHP = healthGauge.fillAmount;
     }
 
     public void SetHungerFull()
     {
         hungerGauge.fillAmount = 1;
+        currentHunger = hungerGauge.fillAmount;
     }
 
     public void IncreaseHealthStat(float increaseNum)
     {
         healthGauge.fillAmount += (increaseNum / maxHealth);
+        currentHP = healthGauge.fillAmount;
         GameManager.Instance.SetGaugeText();
     }
 
@@ -64,11 +79,13 @@ public class PlayerState : MonoBehaviour
         if (isDamaging) return;
 
         StartCoroutine(HandleDamage(decreaseNum));
+        currentHP = healthGauge.fillAmount;
     }
 
     public void IncreaseHungerStat(float increaseNum)
     {
         hungerGauge.fillAmount += (increaseNum / maxHunger);
+        currentHunger = hungerGauge.fillAmount;
         GameManager.Instance.SetGaugeText();
     }
 
@@ -81,6 +98,7 @@ public class PlayerState : MonoBehaviour
         }
 
         hungerGauge.fillAmount -= (decreaseNum / maxHunger);
+        currentHunger = hungerGauge.fillAmount;
         GameManager.Instance.SetGaugeText();
     }
 

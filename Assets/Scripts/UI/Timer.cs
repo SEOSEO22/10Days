@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.Rendering; // 볼륨 컴포넌트 접근을 위해 필요
 using TMPro;
 using UnityEngine.Rendering.Universal;
+using System.Linq;
+using Inventory.Model;
 
 public class Timer : MonoBehaviour
 {
@@ -15,10 +17,16 @@ public class Timer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dayCountText;
     [SerializeField] private SpawnMachineParts spawnMachineParts;
 
+    [Header("Saving Data")]
+    [SerializeField] private TurretSpawner turretSpawner;
+    [SerializeField] private BarrierSpawner barrierSpawner;
+    [SerializeField] private InventorySO playerInventory;
+
     private int timeInfo = (int) TimeInfo.Day;
     private int dayCount = 0;
     private Image image;
 
+    [Space]
     public GameObject spotLight;
     public int DayCount => dayCount;
 
@@ -31,7 +39,9 @@ public class Timer : MonoBehaviour
         if (!ppv) ppv = GameObject.Find("Volume").GetComponent<Volume>();
         if (!dayCountText) dayCountText = GetComponentInChildren<TextMeshProUGUI>();
 
-        // 게임 매니저 혹은 데이터 매니저에 저장된 생존 일수 기록을 불러와 dayCountText에 적용
+        dayCount = DataManager.Instance.currentGameData.dayCountData.dayCount;
+        timeInfo = (int)DataManager.Instance.currentGameData.dayCountData.timeInfo;
+        if (timeInfo == (int)TimeInfo.night) GameManager.Instance.isAllEnemyDead = false;
         SetDayCount();
     }
 
@@ -63,7 +73,10 @@ public class Timer : MonoBehaviour
     private void RestartTimer()
     {
         timeInfo = ++dayCount % 2 == 0 ? (int)TimeInfo.Day : (int)TimeInfo.night;
-        DataManager.Instance.currentGameData.dayCount.SetTimeData(dayCount);
+        DataManager.Instance.currentGameData.dayCountData.SetTimeData(dayCount);
+        DataManager.Instance.currentGameData.turretsData.SetTurretData(turretSpawner.GetComponentsInChildren<TurretStructure>().ToList());
+        DataManager.Instance.currentGameData.barriersData.SetBarrierData(barrierSpawner.GetComponentsInChildren<BarrierStructure>().ToList());
+        DataManager.Instance.currentGameData.inventoryData.SetPlayerInventoryData(playerInventory.GetCurrentInventoryState());
         image.fillAmount = 0;
 
         if (timeInfo == (int)TimeInfo.Day)

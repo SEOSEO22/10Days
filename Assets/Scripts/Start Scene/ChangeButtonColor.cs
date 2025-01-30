@@ -18,6 +18,8 @@ public class ChangeButtonColor : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         if (text != null)
         {
+            if (text.color.a != 1f) return;
+
             text.color = Color.white;
             backgroundText.color = Color.black;
         }

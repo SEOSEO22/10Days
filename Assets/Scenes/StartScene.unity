@@ -205,7 +205,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 90174268}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 656876043}
+        m_TargetAssemblyTypeName: StartSceneButtons, Assembly-CSharp
+        m_MethodName: OnGameDescriptionButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &90174268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -897,6 +909,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   descriptionImage: {fileID: 0}
+  continuousButton: {fileID: 748005221}
+  continuousText: {fileID: 1917858909}
 --- !u!1 &748005219
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,7 +994,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 748005222}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 656876043}
+        m_TargetAssemblyTypeName: StartSceneButtons, Assembly-CSharp
+        m_MethodName: OnContinuousButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &748005222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1153,6 +1179,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794497393}
   m_CullTransparentMesh: 1
+--- !u!1001 &831155456
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2334200846868887595, guid: ac70336ca9257c34d8743f2b3e941104, type: 3}
+      propertyPath: m_Name
+      value: Data Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3786531650466640413, guid: ac70336ca9257c34d8743f2b3e941104, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3786531650466640413, guid: ac70336ca9257c34d8743f2b3e941104, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3786531650466640413, guid: ac70336ca9257c34d8743f2b3e941104, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3786531650466640413, guid: ac70336ca9257c34d8743f2b3e941104, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3786531650466640413, guid: ac70336ca9257c34d8743f2b3e941104, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3786531650466640413, guid: ac70336ca9257c34d8743f2b3e941104, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3786531650466640413, guid: ac70336ca9257c34d8743f2b3e941104, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3786531650466640413, guid: ac70336ca9257c34d8743f2b3e941104, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3786531650466640413, guid: ac70336ca9257c34d8743f2b3e941104, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3786531650466640413, guid: ac70336ca9257c34d8743f2b3e941104, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ac70336ca9257c34d8743f2b3e941104, type: 3}
 --- !u!1 &1349834541
 GameObject:
   m_ObjectHideFlags: 0
@@ -2272,3 +2355,4 @@ SceneRoots:
   - {fileID: 1714344606}
   - {fileID: 98159214}
   - {fileID: 1953574530}
+  - {fileID: 831155456}

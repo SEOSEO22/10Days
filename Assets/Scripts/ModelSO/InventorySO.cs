@@ -16,9 +16,20 @@ namespace Inventory.Model
         public void Initialize()
         {
             inventoryItems = new List<InventoryItem>();
+
             for (int i = 0; i < Size; i++)
             {
                 inventoryItems.Add(InventoryItem.GetEmptyItem());
+            }
+
+            if (DataManager.Instance.IsSaveFileExist())
+            {
+                Dictionary<int, InventoryItem> currentInventory = DataManager.Instance.currentGameData.inventoryData.GetInventoryData();
+                
+                foreach (var item in currentInventory)
+                {
+                    inventoryItems[item.Key] = item.Value;
+                }
             }
         }
 
@@ -129,7 +140,6 @@ namespace Inventory.Model
                 returnValue[i] = inventoryItems[i];
             }
 
-            DataManager.Instance.currentGameData.inventory.SetPlayerInventoryData(returnValue);
             return returnValue;
         }
 

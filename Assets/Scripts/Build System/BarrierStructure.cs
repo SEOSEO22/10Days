@@ -1,6 +1,7 @@
 using Inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BarrierStructure : MonoBehaviour
@@ -22,10 +23,30 @@ public class BarrierStructure : MonoBehaviour
     public int MaxLevel => buildItemSO.buildingItem.Length;
     public Transform TileTransform => tileTransform;
 
+    public void SetLevel(int level)
+    {
+        this.level = level;
+    }
+
     public void Setup(InventorySO playerInventory, Transform tileTransform)
     {
         this.playerInventory = playerInventory;
         this.tileTransform = tileTransform;
+    }
+
+    public void GetObjectAtPosition(Vector3 position, string tag, float radius = 0.1f)
+    {
+        Collider[] colliders = Physics.OverlapSphere(position, radius);
+        foreach (Collider col in colliders)
+        {
+            if (col.CompareTag(tag)) // 특정 태그 확인
+            {
+                tileTransform = col.gameObject.transform; // 첫 번째로 찾은 태그 일치 오브젝트 반환
+                tileTransform.GetComponent<BuildingTile>().isStructureBuilding = true;
+                return;
+            }
+        }
+        tileTransform = null; // 해당 위치에 태그가 맞는 오브젝트가 없으면 null
     }
 
     // 건설 오브젝트 업그레이드
