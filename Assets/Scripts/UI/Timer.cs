@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.Rendering; // 볼륨 컴포넌트 접근을 위해 필요
 using TMPro;
 using UnityEngine.Rendering.Universal;
-using Unity.VisualScripting;
 
 public class Timer : MonoBehaviour
 {
@@ -21,6 +20,7 @@ public class Timer : MonoBehaviour
     private Image image;
 
     public GameObject spotLight;
+    public int DayCount => dayCount;
 
     private void Start()
     {
@@ -63,6 +63,7 @@ public class Timer : MonoBehaviour
     private void RestartTimer()
     {
         timeInfo = ++dayCount % 2 == 0 ? (int)TimeInfo.Day : (int)TimeInfo.night;
+        DataManager.Instance.currentGameData.dayCount.SetTimeData(dayCount);
         image.fillAmount = 0;
 
         if (timeInfo == (int)TimeInfo.Day)

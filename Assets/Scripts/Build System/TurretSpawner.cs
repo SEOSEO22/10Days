@@ -3,6 +3,7 @@ using Inventory.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TurretSpawner : MonoBehaviour
@@ -36,6 +37,8 @@ public class TurretSpawner : MonoBehaviour
             GameManager.Instance.isStructureSelected = false;
             Destroy(followPrefabClone);
         }
+
+        DataManager.Instance.currentGameData.turrets.SetTurretData(GetComponentsInChildren<TurretStructure>().ToList());
     }
 
     public void ReadyToSpawn()
@@ -130,6 +133,25 @@ public class TurretSpawner : MonoBehaviour
         StopCoroutine(OnBuildCancleSystem());
 
         Destroy(followPrefabClone);
+    }
+
+    // 이어 하기 시 이미 생성된 포탑 재생성
+    public void ReSpawnTurret(Transform tileTranform)
+    {
+        BuildingTile turret = tileTranform.GetComponent<BuildingTile>();
+
+        if (turret.isStructureBuilding == true) return;
+
+        isOnBuildButton = false;
+        GameManager.Instance.isStructureSelected = false;
+        turret.isStructureBuilding = true;
+        UseInventoryItem();
+
+        // Build Turret on Selected Tile
+        Vector3 position = tileTranform.position + Vector3.back;
+        GameObject clone = Instantiate(buildItemSO.prefab, position, Quaternion.identity, transform);
+        clone.GetComponent<TurretStructure>().Setup(enemySpawner, playerInventory, tileTranform);
+
     }
 
     private IEnumerator OnBuildCancleSystem()

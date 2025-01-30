@@ -128,6 +128,8 @@ namespace Inventory.Model
                 if (inventoryItems[i].IsEmpty) continue;
                 returnValue[i] = inventoryItems[i];
             }
+
+            DataManager.Instance.currentGameData.inventory.SetPlayerInventoryData(returnValue);
             return returnValue;
         }
 

@@ -2,6 +2,7 @@ using Inventory.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BarrierSpawner : MonoBehaviour
@@ -34,6 +35,8 @@ public class BarrierSpawner : MonoBehaviour
             GameManager.Instance.isStructureSelected = false;
             Destroy(followPrefabClone);
         }
+
+        DataManager.Instance.currentGameData.barriers.SetTurretData(GetComponentsInChildren<BarrierStructure>().ToList());
     }
 
     public void ReadyToSpawn()

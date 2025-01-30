@@ -30,7 +30,6 @@ public class ObstacleAttacking : MonoBehaviour
         // anim.SetTrigger("IsAttacking");
 
         // 타겟 오브젝트의 체력을 깎는 메소드
-        Debug.Log("공격");
         targetHP.Damaged(attackForce);
 
         yield return new WaitForSeconds(attackDelayTime);

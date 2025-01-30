@@ -44,15 +44,23 @@ public class GameManager : MonoBehaviour
     {
         hpText.text = ((int)(healthGauge.fillAmount * 100)).ToString("D3") + " / 100";
         hungerText.text = ((int)(hungerGauge.fillAmount * 100)).ToString("D3") + " / 100";
+
+        SavePlayerStatData();
     }
 
     public void SetTimeInfo(int info)
     {
         timeInfo = (TimeInfo)info;
+        DataManager.Instance.SaveData();
     }
 
     public TimeInfo GetTimeInfo()
     {
         return timeInfo;
+    }
+
+    private void SavePlayerStatData()
+    {
+        DataManager.Instance.currentGameData.playerStat.SetPlayerData(healthGauge.fillAmount, hungerGauge.fillAmount);
     }
 }
