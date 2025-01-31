@@ -101,4 +101,10 @@ public class BarrierStructure : MonoBehaviour
             }
         }
     }
+
+    // 생성 비용 반환
+    public SerializableDictionary<ItemSO, int> CreateCost()
+    {
+        return buildItemSO.buildingItem[level].buildCost;
+    }
 }

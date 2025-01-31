@@ -1,6 +1,8 @@
+using Inventory.Model;
 using Inventory.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,17 +14,16 @@ public class StructureDataViewer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI damageText;
     [SerializeField] private TextMeshProUGUI defenceText;
+    [SerializeField] private Image costItem_1_Img;
+    [SerializeField] private TextMeshProUGUI costItem_1_Text;
+    [SerializeField] private Image costItem_2_Img;
+    [SerializeField] private TextMeshProUGUI costItem_2_Text;
     [SerializeField] private StructureAttackRange structureAttackRange;
 
     [Header("Buttons")]
     [SerializeField] private Button upgradeButton;
     [SerializeField] private Button deleteButton;
 
-    [Header("For Cost Item List")]
-    [SerializeField] private ShowCostItem itemPrefab;
-    [SerializeField] private RectTransform costPanel;
-
-    List<ShowCostItem> listOfCostItems = new List<ShowCostItem>();
     private TurretStructure currentTurret;
     private BarrierStructure currentBarrier;
 
@@ -97,6 +98,7 @@ public class StructureDataViewer : MonoBehaviour
         nameText.text = currentTurret.Name;
         damageText.text = "공격력 : " + ((int)currentTurret.Damage).ToString("D2");
         defenceText.text = "방어력 : " + ((int)currentTurret.Defecne).ToString("D2");
+        SetNeedCost();
 
         if (GameManager.Instance.GetTimeInfo() == TimeInfo.night)
         {
@@ -114,6 +116,7 @@ public class StructureDataViewer : MonoBehaviour
         nameText.text = currentBarrier.Name;
         damageText.text = "공격력 : " + ((int)currentBarrier.Damage).ToString("D3");
         defenceText.text = "방어력 : " + ((int)currentBarrier.Defecne).ToString("D3");
+        SetNeedCost();
 
         if (GameManager.Instance.GetTimeInfo() == TimeInfo.night)
         {
@@ -136,9 +139,33 @@ public class StructureDataViewer : MonoBehaviour
         damageText.text = "공격력 : " + ((int)buildItem.buildingItem[0].damage).ToString(numLength);
         defenceText.text = "방어력 : " + ((int)buildItem.buildingItem[0].defence).ToString(numLength);
 
+        costItem_1_Img.sprite = buildItem.buildingItem[0].buildCost.ElementAt(0).Key.Icon;
+        costItem_1_Text.text = (buildItem.buildingItem[0].buildCost.ElementAt(0).Value).ToString("D2") + "개 필요";
+        costItem_2_Img.sprite = buildItem.buildingItem[0].buildCost.ElementAt(1).Key.Icon;
+        costItem_2_Text.text = (buildItem.buildingItem[0].buildCost.ElementAt(1).Value).ToString("D2") + "개 필요";
+
         // 포탑 첫 생성 시 강화/삭제 버튼 비활성화
         upgradeButton.interactable = false;
         deleteButton.interactable = false;
+    }
+
+    private void SetNeedCost()
+    {
+        SerializableDictionary<ItemSO, int> costs = new SerializableDictionary<ItemSO, int>();
+
+        if (currentBarrier != null)
+        {
+            costs = currentBarrier.CreateCost();
+        }
+        else if (currentTurret != null)
+        {
+            costs = currentTurret.CreateCost();
+        }
+
+        costItem_1_Img.sprite = costs.ElementAt(0).Key.Icon;
+        costItem_1_Text.text = (costs.ElementAt(0).Value).ToString("D2") + "개 필요";
+        costItem_2_Img.sprite = costs.ElementAt(1).Key.Icon;
+        costItem_2_Text.text = (costs.ElementAt(1).Value).ToString("D2") + "개 필요";
     }
 
     public void OnClickUpgrade()
@@ -184,18 +211,6 @@ public class StructureDataViewer : MonoBehaviour
         {
             currentBarrier.TileTransform.GetComponent<BuildingTile>().isStructureBuilding = false;
             Destroy(currentBarrier.gameObject);
-        }
-    }
-
-    // 건설 비용 아이템 리스트 초기화
-    public void InitializeCostItem(int costItemSize)
-    {
-        // 인벤토리 슬롯 초기화
-        for (int i = 0; i < costItemSize; i++)
-        {
-            ShowCostItem costItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
-            costItem.transform.SetParent(costPanel);
-            listOfCostItems.Add(costItem);
         }
     }
 }
