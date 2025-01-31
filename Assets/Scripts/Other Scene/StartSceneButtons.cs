@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class StartSceneButtons : MonoBehaviour
 {
-    [SerializeField] private Image descriptionImage;
+    [SerializeField] private GameObject descriptionPanel;
     [SerializeField] private Button continuousButton;
     [SerializeField] private TextMeshProUGUI continuousText;
 
@@ -47,7 +47,7 @@ public class StartSceneButtons : MonoBehaviour
 
     public void OnGameDescriptionButtonClicked()
     {
-        descriptionImage.gameObject.SetActive(true);
+        descriptionPanel.SetActive(true);
     }
 
     public void OnExitButtonClicked()
