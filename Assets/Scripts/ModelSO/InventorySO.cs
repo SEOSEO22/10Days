@@ -31,6 +31,8 @@ namespace Inventory.Model
                     inventoryItems[item.Key] = item.Value;
                 }
             }
+
+            CheckIsMachinePartsEnough();
         }
 
         public int AddItem(ItemSO item, int quantity)
@@ -158,7 +160,23 @@ namespace Inventory.Model
 
         private void InformAboutChange()
         {
+            CheckIsMachinePartsEnough();
             OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
+        }
+        
+        private void CheckIsMachinePartsEnough()
+        {
+            Dictionary<int, InventoryItem> currentInventory = GetCurrentInventoryState();
+
+            foreach (var inventoryItem in inventoryItems)
+            {
+                if (inventoryItem.IsEmpty) continue;
+                if (inventoryItem.item.name == "MachineParts")
+                {
+                    if (inventoryItem.quantity >= 3)
+                        GameManager.Instance.isMachinePartsEnough = true;
+                }
+            }
         }
     }
 

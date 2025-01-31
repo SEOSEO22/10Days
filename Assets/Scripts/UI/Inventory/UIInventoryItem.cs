@@ -25,7 +25,8 @@ namespace Inventory.UI
         private void Awake()
         {
             initSlotColor = borderImage.color;
-            ResetData();
+
+            if (itemImage != null) ResetData();
             DeSelect();
         }
 

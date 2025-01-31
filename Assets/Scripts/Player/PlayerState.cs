@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerState : MonoBehaviour
@@ -137,6 +138,6 @@ public class PlayerState : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Player has died.");
+        SceneManager.LoadScene("PlayerDeadEnding");
     }
 }
