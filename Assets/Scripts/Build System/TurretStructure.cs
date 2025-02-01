@@ -212,6 +212,8 @@ public class TurretStructure : MonoBehaviour
         {
             level++;
             UseInventoryItem();
+
+            GetComponent<SpriteRenderer>().color = buildItemSO.buildingItem[level].color;
         }
 
         return isPossible;
@@ -241,6 +243,6 @@ public class TurretStructure : MonoBehaviour
     public SerializableDictionary<ItemSO, int> CreateCost()
     {
         if (level + 1 >= buildItemSO.buildingItem.Length) return null;
-        return buildItemSO.buildingItem[level].buildCost;
+        return buildItemSO.buildingItem[level + 1].buildCost;
     }
 }

@@ -17,8 +17,12 @@ public class EndSceneButtons : MonoBehaviour
 
             survivedDayText.text = "생존 일수 : " + dayCount.ToString("D2");
         }
-        if (GameManager.Instance != null) Destroy(GameManager.Instance.gameObject);
-        if (DataManager.Instance != null) DataManager.Instance.DataClear();
+
+        if (SceneManager.GetActiveScene().name == "PlayerDeadEnding" || SceneManager.GetActiveScene().name == "EscapeEnding")
+        {
+            if (GameManager.Instance != null) Destroy(GameManager.Instance.gameObject);
+            if (DataManager.Instance != null) DataManager.Instance.DataClear();
+        }
     }
 
     private void Start()
@@ -31,9 +35,6 @@ public class EndSceneButtons : MonoBehaviour
 
     public void OnBackToStartSceneButtonClicked()
     {
-        if (GameManager.Instance != null) Destroy(GameManager.Instance.gameObject);
-        if (DataManager.Instance != null) DataManager.Instance.DataClear();
-
         SceneManager.LoadScene(0);
     }
 }

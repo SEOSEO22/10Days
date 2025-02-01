@@ -14,6 +14,7 @@ public class PickUpResources : MonoBehaviour
 
         if (item)
         {
+            SoundManager.Instance.PlaySFX(SoundManager.ESfx.SFX_PICKUP);
             int reminder = inventoryData.AddItem(item.InventoryItem, item.Quantity);
 
             if (reminder == 0) item.DestroyItem();

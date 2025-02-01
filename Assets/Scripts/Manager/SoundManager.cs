@@ -52,13 +52,13 @@ public class SoundManager : MonoBehaviour
 
         audioBgm = GameObject.Find("BGM Player").GetComponent<AudioSource>();
         audioSfx = GameObject.Find("Sfx Player").GetComponent<AudioSource>();
-
-        if (DataManager.Instance.IsSoundFileExist())
-            DataManager.Instance.LoadSoundData();
     }
 
     private void Start()
     {
+        if (DataManager.Instance.IsSoundFileExist())
+            DataManager.Instance.LoadSoundData();
+
         audioBgm.volume = DataManager.Instance.currentSoundData.bgmVolume;
         audioSfx.volume = DataManager.Instance.currentSoundData.sfxVolume;
     }

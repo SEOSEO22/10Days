@@ -68,6 +68,7 @@ public class PlayerInteracting : MonoBehaviour
         if (!isInteracing)
         {
             isInteracing = true;
+            SoundManager.Instance.PlaySFX(SoundManager.ESfx.SFX_IRON);
             // anim.SetTrigger("IsAttacking");
 
             // 타겟 오브젝트의 체력을 깎는 메소드

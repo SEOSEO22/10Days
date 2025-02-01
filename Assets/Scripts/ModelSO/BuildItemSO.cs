@@ -19,6 +19,7 @@ public class BuildItemSO : ScriptableObject
         public float defence; // 방어력
         public float rate; // 공격 속도
         public float range; // 공격 범위
+        public Color color; // 건물 색
         public SerializableDictionary<ItemSO, int> buildCost; // 필요 재료
     }
 }

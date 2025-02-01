@@ -77,6 +77,8 @@ public class BarrierStructure : MonoBehaviour
         {
             level++;
             UseInventoryItem();
+
+            GetComponent<SpriteRenderer>().color = buildItemSO.buildingItem[level].color;
         }
 
         return isPossible;

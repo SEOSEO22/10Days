@@ -189,20 +189,20 @@ public class DataManager : MonoBehaviour
         File.WriteAllText(path, encryptedData);
     }
 
-    public void SaveSoundData()
-    {
-        string data = JsonUtility.ToJson(currentSoundData);
-        File.WriteAllText(soundDataPath, data);
-    }
-
     public void LoadData()
     {
         if (File.Exists(path))
         {
             string data = File.ReadAllText(path);
-            string decryptData = Decrypt(data);
-            currentGameData = JsonUtility.FromJson<GameData>(decryptData);
+            string decryptedData = Decrypt(data);
+            currentGameData = JsonUtility.FromJson<GameData>(decryptedData);
         }
+    }
+
+    public void SaveSoundData()
+    {
+        string data = JsonUtility.ToJson(currentSoundData);
+        File.WriteAllText(soundDataPath, data);
     }
 
     public void LoadSoundData()
