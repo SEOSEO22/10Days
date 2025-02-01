@@ -86,7 +86,6 @@ GameObject:
   - component: {fileID: 6753033166602482037}
   - component: {fileID: 7466032500872417215}
   - component: {fileID: 6479580192158534539}
-  - component: {fileID: 4257334154801795909}
   - component: {fileID: 6354021858617877323}
   m_Layer: 5
   m_Name: Cost Item
@@ -154,20 +153,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4257334154801795909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4337556869859461156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a42c24299cb9c145b048ae48e1ba37c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemImage: {fileID: 9163099740735304718}
-  quantityTxt: {fileID: 1444512505740258029}
 --- !u!114 &6354021858617877323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,10 +168,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 10
     m_Right: 10
-    m_Top: 10
-    m_Bottom: 10
+    m_Top: 0
+    m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
+  m_Spacing: -150
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
