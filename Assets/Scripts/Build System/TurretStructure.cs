@@ -240,6 +240,7 @@ public class TurretStructure : MonoBehaviour
     // 생성 비용 반환
     public SerializableDictionary<ItemSO, int> CreateCost()
     {
+        if (level + 1 >= buildItemSO.buildingItem.Length) return null;
         return buildItemSO.buildingItem[level].buildCost;
     }
 }

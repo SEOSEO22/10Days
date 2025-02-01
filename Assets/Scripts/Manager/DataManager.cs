@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Enumeration;
+using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
 
 [System.Serializable]
@@ -146,12 +148,21 @@ public class GameData
     public TimeData dayCountData = new TimeData();
 }
 
+[System.Serializable]
+public class SoundData
+{
+    public float bgmVolume = 0.1f;
+    public float sfxVolume = 0.2f;
+}
+
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
 
     public GameData currentGameData = new GameData();
+    public SoundData currentSoundData = new SoundData();
     private string path;
+    private string soundDataPath;
 
     private void Awake()
     {
@@ -168,12 +179,20 @@ public class DataManager : MonoBehaviour
         #endregion
 
         path = Application.persistentDataPath + "/saveData";
+        soundDataPath = Application.persistentDataPath + "/soundData";
     }
 
     public void SaveData()
     {
         string data = JsonUtility.ToJson(currentGameData);
-        File.WriteAllText(path, data);
+        string encryptedData = Encrypt(data);
+        File.WriteAllText(path, encryptedData);
+    }
+
+    public void SaveSoundData()
+    {
+        string data = JsonUtility.ToJson(currentSoundData);
+        File.WriteAllText(soundDataPath, data);
     }
 
     public void LoadData()
@@ -181,13 +200,28 @@ public class DataManager : MonoBehaviour
         if (File.Exists(path))
         {
             string data = File.ReadAllText(path);
-            currentGameData = JsonUtility.FromJson<GameData>(data);
+            string decryptData = Decrypt(data);
+            currentGameData = JsonUtility.FromJson<GameData>(decryptData);
+        }
+    }
+
+    public void LoadSoundData()
+    {
+        if (File.Exists(soundDataPath))
+        {
+            string data = File.ReadAllText(soundDataPath);
+            currentSoundData = JsonUtility.FromJson<SoundData>(data);
         }
     }
 
     public bool IsSaveFileExist()
     {
         return File.Exists(path);
+    }
+
+    public bool IsSoundFileExist()
+    {
+        return File.Exists(soundDataPath);
     }
 
     public void DataClear()
@@ -197,6 +231,40 @@ public class DataManager : MonoBehaviour
         if (File.Exists(path))
         {
             File.Delete(path);
+        }
+    }
+
+    // AES 암호화 키 및 초기화 벡터(IV)를 설정
+    private static readonly string encryptionKey = "1234567890123456"; // 16 characters, 128-bit key
+    private static readonly string iv = "6543210987654321"; // 16 characters, 128-bit IV
+
+    private string Encrypt(string plainText)
+    {
+        using (Aes aes = Aes.Create())
+        {
+            aes.Key = Encoding.UTF8.GetBytes(encryptionKey);
+            aes.IV = Encoding.UTF8.GetBytes(iv);
+
+            ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+            byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
+            byte[] encryptedBytes = encryptor.TransformFinalBlock(plainBytes, 0, plainBytes.Length);
+
+            return Convert.ToBase64String(encryptedBytes);
+        }
+    }
+
+    private string Decrypt(string cipherText)
+    {
+        using (Aes aes = Aes.Create())
+        {
+            aes.Key = Encoding.UTF8.GetBytes(encryptionKey);
+            aes.IV = Encoding.UTF8.GetBytes(iv);
+
+            ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+            byte[] cipherBytes = Convert.FromBase64String(cipherText);
+            byte[] plainBytes = decryptor.TransformFinalBlock(cipherBytes, 0, cipherBytes.Length);
+
+            return Encoding.UTF8.GetString(plainBytes);
         }
     }
 }

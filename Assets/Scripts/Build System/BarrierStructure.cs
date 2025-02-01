@@ -105,6 +105,7 @@ public class BarrierStructure : MonoBehaviour
     // 생성 비용 반환
     public SerializableDictionary<ItemSO, int> CreateCost()
     {
-        return buildItemSO.buildingItem[level].buildCost;
+        if (level + 1 >= buildItemSO.buildingItem.Length) return null;
+        return buildItemSO.buildingItem[level + 1].buildCost;
     }
 }

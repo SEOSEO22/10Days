@@ -41,7 +41,8 @@ public class GameManager : MonoBehaviour
         hpText = healthGauge.transform.parent.GetComponentInChildren<TextMeshProUGUI>();
         hungerText = hungerGauge.transform.parent.GetComponentInChildren<TextMeshProUGUI>();
 
-        timeInfo = DataManager.Instance.currentGameData.dayCountData.timeInfo;
+        if (DataManager.Instance != null)
+            timeInfo = DataManager.Instance.currentGameData.dayCountData.timeInfo;
     }
 
     public void SetGaugeText()

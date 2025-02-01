@@ -10,8 +10,14 @@ using UnityEngine.UI;
 public class StartSceneButtons : MonoBehaviour
 {
     [SerializeField] private GameObject descriptionPanel;
+    [SerializeField] private GameObject settingPanel;
     [SerializeField] private Button continuousButton;
     [SerializeField] private TextMeshProUGUI continuousText;
+
+    private void Start()
+    {
+        SoundManager.Instance.PlayBGM(SoundManager.EBgm.BGM_TITLE);
+    }
 
     private void Update()
     {
@@ -48,6 +54,11 @@ public class StartSceneButtons : MonoBehaviour
     public void OnGameDescriptionButtonClicked()
     {
         descriptionPanel.SetActive(true);
+    }
+
+    public void OnGameSettingButtonClicked()
+    {
+        settingPanel.SetActive(true);
     }
 
     public void OnExitButtonClicked()

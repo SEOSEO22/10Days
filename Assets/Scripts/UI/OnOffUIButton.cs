@@ -10,6 +10,8 @@ public class OnOffUIButton : MonoBehaviour
 
     public void OnButtonClickedOnOffUI()
     {
+        isActive = targets[0].activeSelf;
+
         if (isActive)
         {
             foreach (GameObject target in targets)

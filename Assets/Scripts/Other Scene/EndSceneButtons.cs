@@ -21,6 +21,14 @@ public class EndSceneButtons : MonoBehaviour
         if (DataManager.Instance != null) DataManager.Instance.DataClear();
     }
 
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "PlayerDeadEnding")
+            SoundManager.Instance.PlayBGM(SoundManager.EBgm.BGM_DEAD);
+        else if (SceneManager.GetActiveScene().name == "EscapeEnding")
+            SoundManager.Instance.PlayBGM(SoundManager.EBgm.BGM_ESCAPE);
+    }
+
     public void OnBackToStartSceneButtonClicked()
     {
         if (GameManager.Instance != null) Destroy(GameManager.Instance.gameObject);

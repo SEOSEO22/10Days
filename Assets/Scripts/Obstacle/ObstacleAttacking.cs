@@ -43,14 +43,14 @@ public class ObstacleAttacking : MonoBehaviour
     {
         if (!isAttacking)
         {
-            yield return new WaitForSeconds(attackDelayTime);
-
             isAttacking = true;
             // anim.SetTrigger("IsAttacking");
 
             // 타겟 오브젝트의 체력을 깎는 메소드
             playerState.DecreaseHealthStat(attackForce);
             // anim.ResetTrigger("IsAttacking");
+
+            yield return new WaitForSeconds(attackDelayTime);
             isAttacking = false;
         }
     }

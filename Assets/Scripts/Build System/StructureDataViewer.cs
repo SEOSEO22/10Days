@@ -31,11 +31,6 @@ public class StructureDataViewer : MonoBehaviour
     private BarrierStructure currentBarrier;
     private Dictionary<int, InventoryItem> currentInventory;
 
-    private void Awake()
-    {
-        OffPanel();
-    }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -149,6 +144,11 @@ public class StructureDataViewer : MonoBehaviour
         int secondItemQuantity = 0;
         int index = 0;
 
+        costItem_1_Img.gameObject.SetActive(true);
+        costItem_1_Text.gameObject.SetActive(true);
+        costItem_2_Img.gameObject.SetActive(true);
+        costItem_2_Text.gameObject.SetActive(true);
+
         foreach (KeyValuePair<ItemSO, int> cost in buildItem.buildingItem[0].buildCost)
         {
             int count = 0;
@@ -198,6 +198,23 @@ public class StructureDataViewer : MonoBehaviour
         else if (currentTurret != null)
         {
             costs = currentTurret.CreateCost();
+        }
+
+        if (costs == null)
+        {
+            costItem_1_Img.gameObject.SetActive(false);
+            costItem_1_Text.gameObject.SetActive(false);
+            costItem_2_Img.gameObject.SetActive(false);
+            costItem_2_Text.gameObject.SetActive(false);
+
+            return;
+        }
+        else
+        {
+            costItem_1_Img.gameObject.SetActive(true);
+            costItem_1_Text.gameObject.SetActive(true);
+            costItem_2_Img.gameObject.SetActive(true);
+            costItem_2_Text.gameObject.SetActive(true);
         }
 
         foreach (KeyValuePair<ItemSO, int> cost in costs)
@@ -265,5 +282,7 @@ public class StructureDataViewer : MonoBehaviour
             currentBarrier.TileTransform.GetComponent<BuildingTile>().isStructureBuilding = false;
             Destroy(currentBarrier.gameObject);
         }
+
+        OffPanel();
     }
 }

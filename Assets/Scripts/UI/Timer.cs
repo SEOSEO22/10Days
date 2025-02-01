@@ -43,6 +43,11 @@ public class Timer : MonoBehaviour
         timeInfo = (int)DataManager.Instance.currentGameData.dayCountData.timeInfo;
         if (timeInfo == (int)TimeInfo.night) GameManager.Instance.isAllEnemyDead = false;
         SetDayCount();
+
+        if (timeInfo == (int)TimeInfo.Day)
+            SoundManager.Instance.PlayBGM(SoundManager.EBgm.BGM_DAY);
+        else if (timeInfo == (int)TimeInfo.night)
+            SoundManager.Instance.PlayBGM(SoundManager.EBgm.BGM_NIGHT);
     }
 
     private void FixedUpdate()
@@ -84,6 +89,7 @@ public class Timer : MonoBehaviour
             maxTime = dayMaxTime;
             GameObject.FindWithTag("Player").GetComponent<PlayerState>().SetHPFull();
             GameManager.Instance.isAllEnemyDead = true;
+            SoundManager.Instance.PlayBGM(SoundManager.EBgm.BGM_DAY);
 
             if (5 < ((dayCount / 2) + 1) && ((dayCount / 2) + 1) <= 10)
             {
@@ -94,6 +100,7 @@ public class Timer : MonoBehaviour
         {
             maxTime = nightMaxTime;
             GameManager.Instance.isAllEnemyDead = false;
+            SoundManager.Instance.PlayBGM(SoundManager.EBgm.BGM_NIGHT);
 
             if (5 < ((dayCount / 2) + 1) && ((dayCount / 2) + 1) <= 10)
             {
