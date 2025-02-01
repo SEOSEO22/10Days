@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Inventory.Model
 {
     [CreateAssetMenu(fileName = "Resource", menuName = "HarvestSystem/Resource")]
-    public class ItemSO : ScriptableObject
+    public class ItemSO : ScriptableObject, IDestroyableItem
     {
         [field: SerializeField] public bool IsStackable { get; private set; }
 

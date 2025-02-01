@@ -24,8 +24,12 @@ public class StructureDataViewer : MonoBehaviour
     [SerializeField] private Button upgradeButton;
     [SerializeField] private Button deleteButton;
 
+    [Space]
+    [SerializeField] private InventorySO playerInventory;
+
     private TurretStructure currentTurret;
     private BarrierStructure currentBarrier;
+    private Dictionary<int, InventoryItem> currentInventory;
 
     private void Awake()
     {
@@ -139,10 +143,39 @@ public class StructureDataViewer : MonoBehaviour
         damageText.text = "공격력 : " + ((int)buildItem.buildingItem[0].damage).ToString(numLength);
         defenceText.text = "방어력 : " + ((int)buildItem.buildingItem[0].defence).ToString(numLength);
 
+        currentInventory = playerInventory.GetCurrentInventoryState();
+
+        int firstItemQuantity = 0;
+        int secondItemQuantity = 0;
+        int index = 0;
+
+        foreach (KeyValuePair<ItemSO, int> cost in buildItem.buildingItem[0].buildCost)
+        {
+            int count = 0;
+
+            foreach (KeyValuePair<int, InventoryItem> inventory in currentInventory)
+            {
+                if (cost.Key == inventory.Value.item)
+                {
+                    count += inventory.Value.quantity;
+                }
+            }
+
+            if (index == 0) firstItemQuantity = count;
+            else if (index == 1) secondItemQuantity = count;
+
+            index++;
+        }
+
         costItem_1_Img.sprite = buildItem.buildingItem[0].buildCost.ElementAt(0).Key.Icon;
-        costItem_1_Text.text = (buildItem.buildingItem[0].buildCost.ElementAt(0).Value).ToString("D2") + "개 필요";
+        costItem_1_Text.text = firstItemQuantity.ToString("D2") + " / " + (buildItem.buildingItem[0].buildCost.ElementAt(0).Value).ToString("D2");
+        if (firstItemQuantity < buildItem.buildingItem[0].buildCost.ElementAt(0).Value) costItem_1_Text.color = Color.red;
+        else costItem_1_Text.color = Color.white;
+
         costItem_2_Img.sprite = buildItem.buildingItem[0].buildCost.ElementAt(1).Key.Icon;
-        costItem_2_Text.text = (buildItem.buildingItem[0].buildCost.ElementAt(1).Value).ToString("D2") + "개 필요";
+        costItem_2_Text.text = secondItemQuantity.ToString("D2") + " / " + (buildItem.buildingItem[0].buildCost.ElementAt(1).Value).ToString("D2");
+        if (secondItemQuantity < buildItem.buildingItem[0].buildCost.ElementAt(1).Value) costItem_2_Text.color = Color.red;
+        else costItem_2_Text.color = Color.white;
 
         // 포탑 첫 생성 시 강화/삭제 버튼 비활성화
         upgradeButton.interactable = false;
@@ -152,6 +185,11 @@ public class StructureDataViewer : MonoBehaviour
     private void SetNeedCost()
     {
         SerializableDictionary<ItemSO, int> costs = new SerializableDictionary<ItemSO, int>();
+        currentInventory = playerInventory.GetCurrentInventoryState();
+
+        int firstItemQuantity = 0;
+        int secondItemQuantity = 0;
+        int index = 0;
 
         if (currentBarrier != null)
         {
@@ -162,10 +200,33 @@ public class StructureDataViewer : MonoBehaviour
             costs = currentTurret.CreateCost();
         }
 
+        foreach (KeyValuePair<ItemSO, int> cost in costs)
+        {
+            int count = 0;
+
+            foreach (KeyValuePair<int, InventoryItem> inventory in currentInventory)
+            {
+                if (cost.Key == inventory.Value.item)
+                {
+                    count += inventory.Value.quantity;
+                }
+            }
+
+            if (index == 0) firstItemQuantity = count;
+            else if (index == 1) secondItemQuantity = count;
+
+            index++;
+        }
+
         costItem_1_Img.sprite = costs.ElementAt(0).Key.Icon;
-        costItem_1_Text.text = (costs.ElementAt(0).Value).ToString("D2") + "개 필요";
+        costItem_1_Text.text = firstItemQuantity.ToString("D2") + " / " + (costs.ElementAt(0).Value).ToString("D2");
+        if (firstItemQuantity < costs.ElementAt(0).Value) costItem_1_Text.color = Color.red;
+        else costItem_1_Text.color = Color.white;
+
         costItem_2_Img.sprite = costs.ElementAt(1).Key.Icon;
-        costItem_2_Text.text = (costs.ElementAt(1).Value).ToString("D2") + "개 필요";
+        costItem_2_Text.text = secondItemQuantity.ToString("D2") + " / " + (costs.ElementAt(1).Value).ToString("D2");
+        if (secondItemQuantity < costs.ElementAt(1).Value) costItem_2_Text.color = Color.red;
+        else costItem_2_Text.color = Color.white;
     }
 
     public void OnClickUpgrade()
@@ -179,10 +240,6 @@ public class StructureDataViewer : MonoBehaviour
                 UpdateTurretData();
                 structureAttackRange.OnAttackRange(currentTurret.transform.position, currentTurret.Range);
             }
-            else
-            {
-                // 재료 부족 메세지
-            }
         }
         else if (currentBarrier != null)
         {
@@ -191,10 +248,6 @@ public class StructureDataViewer : MonoBehaviour
             if (isSuccess == true)
             {
                 UpdateBarrierData();
-            }
-            else
-            {
-                // 재료 부족 메세지
             }
         }
     }
