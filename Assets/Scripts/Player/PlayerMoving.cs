@@ -5,12 +5,19 @@ using UnityEngine;
 public class PlayerMoving : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private BoxCollider2D toolCollider;
+
     private PlayerState playerStat;
     private Coroutine footstepCoroutine = null; // 현재 실행 중인 코루틴 저장 변수
+    private SpriteRenderer renderer;
+    private Animator anim;
+    private bool isHorizonMove;
 
     private void Start()
     {
         playerStat = GetComponent<PlayerState>();
+        anim = GetComponent<Animator>();
+        renderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -23,7 +30,52 @@ public class PlayerMoving : MonoBehaviour
         float xAxis = Input.GetAxisRaw("Horizontal");
         float yAxis = Input.GetAxisRaw("Vertical");
 
-        Vector2 moveDir = (Vector3.up * yAxis) + (Vector3.right * xAxis);
+        bool hDown = Input.GetButtonDown("Horizontal");
+        bool vDown = Input.GetButtonDown("Vertical");
+        bool hUp = Input.GetButtonUp("Horizontal");
+        bool vUp = Input.GetButtonUp("Vertical");
+
+        if (hDown)
+        {
+            isHorizonMove = true;
+            toolCollider.offset = new Vector2((int)xAxis, 0) + Vector2.down;
+        }
+        else if (vDown)
+        {
+            isHorizonMove = false;
+            toolCollider.offset = new Vector2(0, (int)yAxis) + Vector2.down;
+        }
+        else if (hUp || vUp)
+        {
+            isHorizonMove = xAxis != 0;
+        }
+
+        // 애니메이션
+        if (anim.GetInteger("hAxisRaw") != xAxis)
+        {
+            anim.SetBool("isChange", true);
+            anim.SetInteger("hAxisRaw", (int)xAxis);
+        }
+        else if (anim.GetInteger("vAxisRaw") != yAxis)
+        {
+            anim.SetBool("isChange", true);
+            anim.SetInteger("vAxisRaw", (int)yAxis);
+        }
+        else
+        {
+            anim.SetBool("isChange", false);
+        }
+
+        if (xAxis < 0)
+        {
+            renderer.flipX = true;
+        }
+        else if (xAxis > 0)
+        {
+            renderer.flipX = false;
+        }
+
+        Vector2 moveDir = isHorizonMove ? new Vector2(xAxis, 0) : new Vector2(0, yAxis);
 
         if (moveDir != Vector2.zero)
         {

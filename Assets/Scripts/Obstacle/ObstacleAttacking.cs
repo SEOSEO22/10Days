@@ -10,11 +10,13 @@ public class ObstacleAttacking : MonoBehaviour
 
     private PlayerState playerState;
     private ObjectHPBar targetHP;
+    private Animator anim;
     private bool isAttacking = false;
 
     private void Start()
     {
         playerState = GameObject.FindWithTag("Player").GetComponent<PlayerState>();
+        anim = GetComponent<Animator>();
     }
 
     public IEnumerator AttackTarget(GameObject attackTarget)
@@ -44,7 +46,7 @@ public class ObstacleAttacking : MonoBehaviour
         if (!isAttacking)
         {
             isAttacking = true;
-            // anim.SetTrigger("IsAttacking");
+            anim.SetTrigger("isAttack");
 
             // 타겟 오브젝트의 체력을 깎는 메소드
             playerState.DecreaseHealthStat(attackForce);

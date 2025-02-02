@@ -7,11 +7,12 @@ public class AnimalMoving : MonoBehaviour
     [SerializeField] GameObject target;
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] float distance = 10f;
-    [SerializeField] float attackDistance = 1f;
+    [SerializeField] float attackDistance = 1.5f;
 
     // private Animator anim;
     private ObstacleAttacking attacking; // 공격 스크립트
     private Collider2D trigger; // 트리거 컴포넌트
+    private Animator anim;
     private Vector3 moveDirection;
     private float currentDistance = 0f; // 타겟과의 현재 거리
     private bool isMoving; // 현재 오브젝트 움직임 상태
@@ -22,6 +23,7 @@ public class AnimalMoving : MonoBehaviour
         target = GameObject.FindWithTag("Player");
         attacking = GetComponent<ObstacleAttacking>();
         trigger = GetComponent<Collider2D>();
+        anim = GetComponent<Animator>();
         // anim = GetComponent<Animator>();
     }
 
@@ -60,9 +62,17 @@ public class AnimalMoving : MonoBehaviour
     private void SetDirection()
     {
         moveDirection = (target.transform.position - transform.position).normalized;
+    }
 
-        // anim.SetFloat("Horizontal", moveDirection.x);
-        // anim.SetFloat("Vertical", moveDirection.y);
+    // 애니메이션 방향 설정
+    public void SetAnimationDirection(float xValue)
+    {
+        if (anim.GetInteger("xAxis") != Mathf.Sign(xValue))
+        {
+            anim.SetBool("isChange", true);
+            anim.SetInteger("xAxis", (int)Mathf.Sign(xValue));
+        }
+        else anim.SetBool("isChange", false);
     }
 
     // 일반적인 행동을 취하는 함수(타깃과 거리가 멀 경우)
@@ -81,6 +91,11 @@ public class AnimalMoving : MonoBehaviour
             if (randomMove > 0) // 랜덤한 방향으로 이동
             {
                 transform.Translate(randomDirection * moveSpeed * Time.deltaTime);
+                SetAnimationDirection(randomDirection.x);
+            }
+            else
+            {
+                anim.SetInteger("xAxis", 0);
             }
 
             yield return null; // 다음 프레임까지 대기
@@ -114,11 +129,10 @@ public class AnimalMoving : MonoBehaviour
         if ((target.transform.position - transform.position).magnitude < attackDistance)
         {
             StartCoroutine(attacking.AttackPlayer(target));
-            // anim.SetBool("IsWalking", false);
+            anim.SetInteger("xAxis", 0);
             return;
         }
-
-        // anim.SetBool("IsWalking", true);
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        SetAnimationDirection(moveDirection.x);
     }
 }

@@ -7,6 +7,7 @@ public class PlayerInteracting : MonoBehaviour
     [SerializeField] float gatheringForce = 10f;
     [SerializeField] float attackForce = 10f;
     [SerializeField] float delayTime = 1f;
+    [SerializeField] private Animator playerAnim;
 
     private BoxCollider2D toolCollider;
     private bool isInteracing = false;
@@ -21,6 +22,7 @@ public class PlayerInteracting : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            playerAnim.SetTrigger("isAttack");
             toolCollider.enabled = true;
         }
     }
