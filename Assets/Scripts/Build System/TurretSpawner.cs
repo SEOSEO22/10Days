@@ -29,16 +29,6 @@ public class TurretSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (isOnBuildButton == false && Input.GetKeyDown(KeyCode.Escape))
-        {
-            tile.SetActive(false);
-
-            foreach (GameObject ui in buildUI)
-            {
-                ui.SetActive(false);
-            }
-        }
-
         if (tile.activeSelf == false)
         {
             isOnBuildButton = false;
@@ -149,8 +139,8 @@ public class TurretSpawner : MonoBehaviour
             // Build Turret on Selected Tile
             Vector3 position = DataManager.Instance.currentGameData.turretsData.turrets[i].tileTransform + Vector3.back;
             GameObject clone = Instantiate(buildItemSO.prefab, position, Quaternion.identity, transform);
-            clone.GetComponent<TurretStructure>().Setup(enemySpawner, playerInventory, clone.transform);
             clone.GetComponent<TurretStructure>().SetLevel(DataManager.Instance.currentGameData.turretsData.turrets[i].level);
+            clone.GetComponent<TurretStructure>().Setup(enemySpawner, playerInventory, clone.transform);
             clone.GetComponent<TurretStructure>().GetObjectAtPosition(DataManager.Instance.currentGameData.turretsData.turrets[i].tileTransform - Vector3.back, "Tile", .1f);
         }
     }

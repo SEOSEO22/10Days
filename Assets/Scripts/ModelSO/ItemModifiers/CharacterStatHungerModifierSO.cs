@@ -11,7 +11,6 @@ public class CharacterStatHungerModifierSO : CharacterStatModifierSO
         if (stat != null)
         {
             stat.IncreaseHungerStat(val);
-            GameManager.Instance.SetGaugeText();
         }
     }
 }

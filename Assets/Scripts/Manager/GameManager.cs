@@ -12,12 +12,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     private TimeInfo timeInfo = TimeInfo.Day;
 
-    // 체력 / 허기 게이지 UI
-    private Image healthGauge;
-    private Image hungerGauge;
-    private TextMeshProUGUI hpText;
-    private TextMeshProUGUI hungerText;
-
     public bool isAllEnemyDead { get; set; } = true;    // 적 오브젝트 존재 여부
     public bool isStructureSelected { get; set; } = false;  // 건축물 선택 여부
     public bool isMachinePartsEnough { get; set; } = false; // 기계 부품 개수가 탈출하기에 충분한지 확인
@@ -36,26 +30,13 @@ public class GameManager : MonoBehaviour
         }
         #endregion
 
-        healthGauge = GameObject.FindWithTag("Health Gauge").GetComponent<Image>();
-        hungerGauge = GameObject.FindWithTag("Hunger Gauge").GetComponent<Image>();
-        hpText = healthGauge.transform.parent.GetComponentInChildren<TextMeshProUGUI>();
-        hungerText = hungerGauge.transform.parent.GetComponentInChildren<TextMeshProUGUI>();
-
         if (DataManager.Instance != null)
             timeInfo = DataManager.Instance.currentGameData.dayCountData.timeInfo;
-    }
-
-    public void SetGaugeText()
-    {
-        hpText.text = ((int)(healthGauge.fillAmount * 100)).ToString("D3") + " / 100";
-        hungerText.text = ((int)(hungerGauge.fillAmount * 100)).ToString("D3") + " / 100";
     }
 
     public void SetTimeInfo(int info)
     {
         timeInfo = (TimeInfo)info;
-
-        SavePlayerStatData();
         DataManager.Instance.SaveData();
 
         LoadEscapeEnding();
@@ -64,11 +45,6 @@ public class GameManager : MonoBehaviour
     public TimeInfo GetTimeInfo()
     {
         return timeInfo;
-    }
-
-    private void SavePlayerStatData()
-    {
-        DataManager.Instance.currentGameData.playerStatData.SetPlayerData(healthGauge.fillAmount, hungerGauge.fillAmount);
     }
 
     private void LoadEscapeEnding()

@@ -49,6 +49,7 @@ public class TurretStructure : MonoBehaviour
         this.enemySpawner = enemySpawner;
         this.playerInventory = playerInventory;
         this.tileTransform = tileTransform;
+        GetComponent<SpriteRenderer>().color = buildItemSO.buildingItem[level].color;
 
         // 최초 상태를 타겟 서칭으로 설정
         ChangeState(WeaponState.SearchTarget);

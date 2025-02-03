@@ -25,9 +25,11 @@ namespace Inventory.Model
             if (DataManager.Instance.IsSaveFileExist())
             {
                 Dictionary<int, InventoryItem> currentInventory = DataManager.Instance.currentGameData.inventoryData.GetInventoryData();
-                
+
                 foreach (var item in currentInventory)
                 {
+                    Debug.Log(item.Value.item);
+                    Debug.Log(item.Value.quantity);
                     inventoryItems[item.Key] = item.Value;
                 }
             }

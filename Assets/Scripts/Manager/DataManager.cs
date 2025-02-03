@@ -46,6 +46,7 @@ public class PlayerInventoryData
         foreach (var item in inventory)
         {
             inventoryDict[item.id] = item.item;
+            item.item.item = item.itemSO;
         }
         return inventoryDict;
     }
@@ -56,11 +57,13 @@ public class InventoryItemWrapper
 {
     public int id;
     public InventoryItem item;
+    public ItemSO itemSO;
 
     public InventoryItemWrapper(int id, InventoryItem item)
     {
         this.id = id;
         this.item = item;
+        itemSO = item.item;
     }
 }
 

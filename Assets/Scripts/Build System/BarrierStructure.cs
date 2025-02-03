@@ -32,6 +32,8 @@ public class BarrierStructure : MonoBehaviour
     {
         this.playerInventory = playerInventory;
         this.tileTransform = tileTransform;
+
+        GetComponent<SpriteRenderer>().color = buildItemSO.buildingItem[level].color;
     }
 
     public void GetObjectAtPosition(Vector3 position, string tag, float radius = 0.1f)

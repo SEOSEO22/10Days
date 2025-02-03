@@ -10,6 +10,7 @@ TagManager:
   - Animal
   - Tile
   - Build Item
+  - Timer
   layers:
   - Default
   - TransparentFX

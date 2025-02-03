@@ -31,14 +31,6 @@ public class StructureDataViewer : MonoBehaviour
     private BarrierStructure currentBarrier;
     private Dictionary<int, InventoryItem> currentInventory;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            OffPanel();
-        }
-    }
-
     public void InitCurrentStructure()
     {
         currentBarrier = null;

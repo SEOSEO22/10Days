@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,9 +11,11 @@ public class PlayerState : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float maxHunger = 100f;
     [SerializeField] private float invincibleTime = 1.5f;
+    [SerializeField] private Image healthGauge;
+    [SerializeField] private Image hungerGauge;
+    [SerializeField] private TextMeshProUGUI hpText;
+    [SerializeField] private TextMeshProUGUI hungerText;
 
-    private Image healthGauge;
-    private Image hungerGauge;
     private bool isDamaging = false;
     private float currentHP;
     private float currentHunger;
@@ -53,7 +56,15 @@ public class PlayerState : MonoBehaviour
             currentHunger = maxHunger;
         }
 
-        GameManager.Instance.SetGaugeText();
+        SetGaugeText();
+    }
+
+    public void SetGaugeText()
+    {
+        hpText.text = ((int)(healthGauge.fillAmount * 100)).ToString("D3") + " / 100";
+        hungerText.text = ((int)(hungerGauge.fillAmount * 100)).ToString("D3") + " / 100";
+
+        DataManager.Instance.currentGameData.playerStatData.SetPlayerData(healthGauge.fillAmount, hungerGauge.fillAmount);
     }
 
     public void SetHPFull()
@@ -72,7 +83,7 @@ public class PlayerState : MonoBehaviour
     {
         healthGauge.fillAmount += (increaseNum / maxHealth);
         currentHP = healthGauge.fillAmount;
-        GameManager.Instance.SetGaugeText();
+        SetGaugeText();
     }
 
     public void DecreaseHealthStat(float decreaseNum)
@@ -87,7 +98,7 @@ public class PlayerState : MonoBehaviour
     {
         hungerGauge.fillAmount += (increaseNum / maxHunger);
         currentHunger = hungerGauge.fillAmount;
-        GameManager.Instance.SetGaugeText();
+        SetGaugeText();
     }
 
     public void DecreaseHungerStat(float decreaseNum)
@@ -100,7 +111,7 @@ public class PlayerState : MonoBehaviour
 
         hungerGauge.fillAmount -= (decreaseNum / maxHunger);
         currentHunger = hungerGauge.fillAmount;
-        GameManager.Instance.SetGaugeText();
+        SetGaugeText();
     }
 
     private IEnumerator HandleDamage(float decreaseNum)
@@ -109,7 +120,7 @@ public class PlayerState : MonoBehaviour
 
         // 체력 감소
         healthGauge.fillAmount -= (decreaseNum / maxHealth);
-        GameManager.Instance.SetGaugeText();
+        SetGaugeText();
 
         // 피해 시 화면에 붉은 배경 페이드인/아웃
         Color color = imageScreen.color;

@@ -11,12 +11,15 @@ public class ObjectHPBar : MonoBehaviour
     [SerializeField] private float invincibleTime = 1.5f;
 
     private Slider HPBar;
+    private Timer timer;
     private bool isDamaging = false;
+    private int dayCount = 0;
 
     private void Awake()
     {
         HPBar = GetComponent<Slider>();
         target = transform.parent.parent.gameObject;
+        timer = GameObject.FindWithTag("Timer").GetComponent<Timer>();
     }
 
     private void OnEnable()
@@ -32,6 +35,15 @@ public class ObjectHPBar : MonoBehaviour
     private void LateUpdate()
     {
         SetHPBarLocation();
+
+        if (timer != null)
+        {
+            if (dayCount != timer.DayCount)
+            {
+                SetHPFull();
+                dayCount = timer.DayCount;
+            }
+        }
     }
     public void SetHPFull()
     {

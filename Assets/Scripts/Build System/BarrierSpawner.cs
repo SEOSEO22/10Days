@@ -27,16 +27,6 @@ public class BarrierSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (isOnBuildButton == false && Input.GetKeyDown(KeyCode.Escape))
-        {
-            tile.SetActive(false);
-
-            foreach (GameObject ui in buildUI)
-            {
-                ui.SetActive(false);
-            }
-        }
-
         if (tile.activeSelf == false)
         {
             isOnBuildButton = false;
@@ -147,8 +137,8 @@ public class BarrierSpawner : MonoBehaviour
             // Build Turret on Selected Tile
             Vector3 position = DataManager.Instance.currentGameData.barriersData.barriers[i].tileTransform + Vector3.back;
             GameObject clone = Instantiate(buildItemSO.prefab, position, Quaternion.identity, transform);
-            clone.GetComponent<BarrierStructure>().Setup(playerInventory, clone.transform);
             clone.GetComponent<BarrierStructure>().SetLevel(DataManager.Instance.currentGameData.barriersData.barriers[i].level);
+            clone.GetComponent<BarrierStructure>().Setup(playerInventory, clone.transform);
             clone.GetComponent<BarrierStructure>().GetObjectAtPosition(DataManager.Instance.currentGameData.barriersData.barriers[i].tileTransform - Vector3.back, "Tile", .1f);
         }
     }

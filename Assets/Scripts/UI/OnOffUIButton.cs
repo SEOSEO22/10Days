@@ -30,6 +30,5 @@ public class OnOffUIButton : MonoBehaviour
 
             isActive = true;
         }
-
     }
 }
