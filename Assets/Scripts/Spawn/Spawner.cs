@@ -12,6 +12,7 @@ public class Spawner : MonoBehaviour
     [Header("Set Spawn Time")]
     [SerializeField] float spawnTime = 1f;
     [SerializeField] float totalSpawnTime = 20f;
+    [SerializeField] Timer timer;
 
     private bool spawnAnimalOnce;
 
@@ -53,6 +54,39 @@ public class Spawner : MonoBehaviour
                 spawnAnimalOnce = false;
                 spawnManager.SetAnimalActiveFalse();
                 spawnManager.SetResourceActiveFalse();
+
+                switch ((timer.DayCount / 2) + 1) {
+                    case 1:
+                        totalSpawnTime = 5f;
+                        break;
+                    case 2:
+                        totalSpawnTime = 5f;
+                        break;
+                    case 3:
+                        totalSpawnTime = 8f;
+                        break;
+                    case 4:
+                        totalSpawnTime = 10f;
+                        break;
+                    case 5:
+                        totalSpawnTime = 10f;
+                        break;
+                    case 6:
+                        totalSpawnTime = 15f;
+                        break;
+                    case 7:
+                        totalSpawnTime = 15f;
+                        break;
+                    case 8:
+                        totalSpawnTime = 17f;
+                        break;
+                    case 9:
+                        totalSpawnTime = 20f;
+                        break;
+                    case 10:
+                        totalSpawnTime = 20f;
+                        break;
+                }
 
                 while (currentTime < totalSpawnTime)
                 {

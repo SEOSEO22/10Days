@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3998049855410350073}
   - component: {fileID: 1954385702571943507}
   - component: {fileID: 6375959829049538903}
+  - component: {fileID: 2092676213655217876}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
@@ -81,8 +82,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 26c31f30a0662104cb7b99c878ea6c19, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: -1889936522, guid: a209f692998cd1c49bb69f04b80265d3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -119,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  distance: 2
+  distance: 1.5
 --- !u!114 &31050511558184034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,8 +166,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.1731658}
-  m_Size: {x: 1.1, y: 4.836259}
+  m_Offset: {x: -0.020740986, y: -0.19432193}
+  m_Size: {x: 0.7266598, y: 1.0170356}
   m_Direction: 0
 --- !u!50 &1954385702571943507
 Rigidbody2D:
@@ -207,6 +208,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad3d08ab01d7504092ad624c7e3cee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &2092676213655217876
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2329188478879483807}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b7cde20ebce3d6140816e29e31c3383a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7274090928628161532
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,6 +416,10 @@ PrefabInstance:
     - target: {fileID: 2124958295899758843, guid: f03be6946048cff4b9a7c767cfe4dc5f, type: 3}
       propertyPath: m_SizeDelta.x
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343501659048781099, guid: f03be6946048cff4b9a7c767cfe4dc5f, type: 3}
+      propertyPath: offset.y
+      value: -1.1
       objectReference: {fileID: 0}
     - target: {fileID: 2710514600845883762, guid: f03be6946048cff4b9a7c767cfe4dc5f, type: 3}
       propertyPath: m_AnchorMax.x

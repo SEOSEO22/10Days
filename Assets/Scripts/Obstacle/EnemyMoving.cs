@@ -5,19 +5,20 @@ using UnityEngine;
 public class EnemyMoving : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 3f;
-    [SerializeField] float distance = 3f;
+    [SerializeField] float distance = 1.5f;
 
     // private Animator anim;
     private Vector3 moveDirection;
     private ObstacleAttacking attacking;
     private GameObject target = null;
     private FindTarget findTarget;
+    private Animator anim;
 
     private void Start()
     {
         findTarget = GetComponent<FindTarget>();
         attacking = GetComponent<ObstacleAttacking>();
-        // anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -39,9 +40,31 @@ public class EnemyMoving : MonoBehaviour
     private void SetDirection()
     {
         moveDirection = (target.transform.position - transform.position).normalized;
+    }
 
-        // anim.SetFloat("Horizontal", moveDirection.x);
-        // anim.SetFloat("Vertical", moveDirection.y);
+    // 애니메이션 방향 설정
+    public void SetAnimationDirection(float xValue, float yValue)
+    {
+        if (Mathf.Abs(xValue) >= Mathf.Abs(yValue))
+        {
+            if (anim.GetInteger("xAxis") != Mathf.Sign(xValue))
+            {
+                anim.SetBool("isChange", true);
+                anim.SetInteger("xAxis", (int)Mathf.Sign(xValue));
+                anim.SetInteger("yAxis", 0);
+            }
+            else anim.SetBool("isChange", false);
+        }
+        else
+        {
+            if (anim.GetInteger("yAxis") != Mathf.Sign(yValue))
+            {
+                anim.SetBool("isChange", true);
+                anim.SetInteger("yAxis", (int)Mathf.Sign(yValue));
+                anim.SetInteger("xAxis", 0);
+            }
+            else anim.SetBool("isChange", false);
+        }
     }
 
     private void EnemyMove()
@@ -57,12 +80,11 @@ public class EnemyMoving : MonoBehaviour
             {
                 StartCoroutine(attacking.AttackPlayer(target));
             }
-            // anim.SetBool("IsWalking", false);
 
             return;
         }
 
-        // anim.SetBool("IsWalking", true);
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        SetAnimationDirection(moveDirection.x, moveDirection.y);
     }
 }

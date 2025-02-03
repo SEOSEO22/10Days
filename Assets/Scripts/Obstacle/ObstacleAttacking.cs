@@ -23,6 +23,7 @@ public class ObstacleAttacking : MonoBehaviour
     {
         if (attackTarget == null) yield break;
 
+        anim.SetTrigger("isAttack");
         targetHP = attackTarget.gameObject.GetComponentInChildren<ObjectHPBar>();
 
         if (targetHP == null) yield break;
