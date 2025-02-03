@@ -63,7 +63,7 @@ public class StartSceneButtons : MonoBehaviour
 
     public void OnExitButtonClicked()
     {
-        EditorApplication.isPlaying = false;
-        // Application.Quit();
+        // EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 }

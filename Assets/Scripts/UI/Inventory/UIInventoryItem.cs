@@ -32,8 +32,11 @@ namespace Inventory.UI
 
         public void ResetData()
         {
-            itemImage.gameObject.SetActive(false);
-            empty = false;
+            if (itemImage != null)
+            {
+                itemImage.gameObject.SetActive(false);
+                empty = true;
+            }
         }
 
         public void DeSelect()

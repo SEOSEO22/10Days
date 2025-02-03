@@ -4981,7 +4981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50eda79e26f2b5240962f14337206de2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emitCount: 1
+  emitCount: 2
 --- !u!58 &5915381633255125566
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5116,6 +5116,10 @@ PrefabInstance:
     - target: {fileID: 503238729472349902, guid: f03be6946048cff4b9a7c767cfe4dc5f, type: 3}
       propertyPath: m_Color.r
       value: 0.32156864
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343501659048781099, guid: f03be6946048cff4b9a7c767cfe4dc5f, type: 3}
+      propertyPath: maxHP
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 2343501659048781099, guid: f03be6946048cff4b9a7c767cfe4dc5f, type: 3}
       propertyPath: offset.y

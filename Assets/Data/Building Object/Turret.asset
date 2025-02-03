@@ -19,23 +19,23 @@ MonoBehaviour:
     type: "\uD3EC\uD0D1"
     damage: 5
     defence: 30
-    rate: 2
+    rate: 1
     range: 5
     color: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
     buildCost:
       m_keys:
       - {fileID: 11400000, guid: c01363c1b0ed5be4388fa16c799ab83d, type: 2}
-      - {fileID: 11400000, guid: ced119c6f5cbef84784f570a0acb1477, type: 2}
-      m_values: 0300000001000000
+      - {fileID: 11400000, guid: f238a6bb1c65fa047b5d84b77e4989dc, type: 2}
+      m_values: 0600000003000000
   - name: "\uCCA0 \uD3EC\uD0D1"
     type: "\uD3EC\uD0D1"
     damage: 10
     defence: 50
-    rate: 2
+    rate: 0.5
     range: 7
     color: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
     buildCost:
       m_keys:
       - {fileID: 11400000, guid: c01363c1b0ed5be4388fa16c799ab83d, type: 2}
       - {fileID: 11400000, guid: ced119c6f5cbef84784f570a0acb1477, type: 2}
-      m_values: 0300000005000000
+      m_values: 0500000006000000

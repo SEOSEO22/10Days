@@ -13,6 +13,7 @@ public class ResourcePickUp : MonoBehaviour
     private void Start()
     {
         GetComponent<SpriteRenderer>().sprite = InventoryItem.Icon;
+        Invoke("DestroySelf", 30f);
     }
 
     public void DestroyItem()
@@ -35,6 +36,11 @@ public class ResourcePickUp : MonoBehaviour
             yield return null;
         }
 
+        Destroy(gameObject);
+    }
+
+    private void DestroySelf()
+    {
         Destroy(gameObject);
     }
 }

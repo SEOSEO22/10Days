@@ -48,6 +48,7 @@ MonoBehaviour:
   gatheringForce: 10
   attackForce: 10
   delayTime: 1
+  playerAnim: {fileID: 7411448628347742779}
 --- !u!61 &7402167008073653465
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -80,7 +81,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.5, y: 1.5}
+  m_Offset: {x: 0, y: -1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -91,7 +92,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.5}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &2060150150570451135
 GameObject:
@@ -275,6 +276,7 @@ GameObject:
   - component: {fileID: 6644655443935502861}
   - component: {fileID: 7204201045629078977}
   - component: {fileID: 7665371278338177603}
+  - component: {fileID: 7411448628347742779}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -341,7 +343,7 @@ SpriteRenderer:
   m_SortingLayerID: 789215655
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 26c31f30a0662104cb7b99c878ea6c19, type: 3}
+  m_Sprite: {fileID: -1738654082, guid: eaf0271a5437271418f4d66dc0c48295, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -360,14 +362,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8795833010456946528}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -392,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  toolCollider: {fileID: 7402167008073653465}
 --- !u!114 &6384874470123125637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,7 +408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imageScreen: {fileID: 0}
-  maxHealth: 1000
+  maxHealth: 100
   maxHunger: 100
   invincibleTime: 1.5
 --- !u!114 &6644655443935502861
@@ -425,13 +428,13 @@ MonoBehaviour:
   initialItems:
   - quantity: 3
     item: {fileID: 11400000, guid: 93ab8fd8e072de347b17236a1b31e582, type: 2}
-  - quantity: 15
+  - quantity: 20
     item: {fileID: 11400000, guid: c01363c1b0ed5be4388fa16c799ab83d, type: 2}
   - quantity: 20
     item: {fileID: 11400000, guid: f238a6bb1c65fa047b5d84b77e4989dc, type: 2}
-  - quantity: 11
+  - quantity: 20
     item: {fileID: 11400000, guid: 16d6ed3a55b6cdc4cb4d9679c5eae681, type: 2}
-  - quantity: 7
+  - quantity: 20
     item: {fileID: 11400000, guid: ced119c6f5cbef84784f570a0acb1477, type: 2}
   - quantity: 2
     item: {fileID: 11400000, guid: f27e82e891f7de347a5018cef3106cc6, type: 2}
@@ -467,8 +470,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.1}
-  m_Size: {x: 1.1, y: 3.1}
+  m_Offset: {x: 0.03934264, y: -0.66704464}
+  m_Size: {x: 0.90328693, y: 1.483638}
   m_Direction: 0
 --- !u!114 &7665371278338177603
 MonoBehaviour:
@@ -483,3 +486,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryData: {fileID: 11400000, guid: 72d03d0ea5192a445a35354e3e38f544, type: 2}
+--- !u!95 &7411448628347742779
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8795833010456946528}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 49056af0c3f1837428248440953fc84b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

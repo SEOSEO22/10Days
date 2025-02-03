@@ -94,7 +94,7 @@ public class PlayerState : MonoBehaviour
     {
         if (hungerGauge.fillAmount <= 0.019f)
         {
-            DecreaseHealthStat(decreaseNum * (maxHealth / maxHunger));
+            DecreaseHealthStat(1f);
             return;
         }
 

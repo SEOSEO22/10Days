@@ -10,9 +10,9 @@ using Inventory.Model;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] private float dayMaxTime = 600f;
+    [SerializeField] private float dayMaxTime = 400f;
     [SerializeField] private float nightMaxTime = 200f;
-    [SerializeField] private float maxTime = 600f;
+    [SerializeField] private float maxTime = 400f;
     [SerializeField] private Volume ppv; // Æ÷½ºÆ® ÇÁ·Î¼¼½Ì º¼·ý
     [SerializeField] private TextMeshProUGUI dayCountText;
     [SerializeField] private SpawnMachineParts spawnMachineParts;

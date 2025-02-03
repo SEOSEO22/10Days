@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807853da08727a94c9f68e8df3b495c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackForce: 20
+  attackForce: 7
   attackDelayTime: 2
 --- !u!114 &4778831750434596373
 MonoBehaviour:
@@ -416,6 +416,10 @@ PrefabInstance:
     - target: {fileID: 2124958295899758843, guid: f03be6946048cff4b9a7c767cfe4dc5f, type: 3}
       propertyPath: m_SizeDelta.x
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343501659048781099, guid: f03be6946048cff4b9a7c767cfe4dc5f, type: 3}
+      propertyPath: maxHP
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2343501659048781099, guid: f03be6946048cff4b9a7c767cfe4dc5f, type: 3}
       propertyPath: offset.y

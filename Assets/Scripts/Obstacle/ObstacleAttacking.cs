@@ -19,6 +19,11 @@ public class ObstacleAttacking : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    private void OnEnable()
+    {
+        isAttacking = false;
+    }
+
     public IEnumerator AttackTarget(GameObject attackTarget)
     {
         if (attackTarget == null) yield break;

@@ -46,10 +46,9 @@ public class ObjectHPBar : MonoBehaviour
         isDamaging = true;
 
         HPBar.value = Mathf.Clamp(HPBar.value - (damage / maxHP), 0f, 1f);
-        if (HPBar.value <= 0)
+        if (HPBar.value <= 0.01f)
         {
             target.GetComponent<Harvest>().HarvestObject(target);
-            isDamaging = false;
             return;
         }
 

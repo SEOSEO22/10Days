@@ -26,11 +26,11 @@ MonoBehaviour:
       m_keys:
       - {fileID: 11400000, guid: 16d6ed3a55b6cdc4cb4d9679c5eae681, type: 2}
       - {fileID: 11400000, guid: f238a6bb1c65fa047b5d84b77e4989dc, type: 2}
-      m_values: 050000000f000000
+      m_values: 0300000005000000
   - name: "\uB3CC \uBCBD"
     type: "\uBC29\uBCBD"
     damage: 0
-    defence: 200
+    defence: 150
     rate: 0
     range: 0
     color: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
@@ -38,11 +38,11 @@ MonoBehaviour:
       m_keys:
       - {fileID: 11400000, guid: 16d6ed3a55b6cdc4cb4d9679c5eae681, type: 2}
       - {fileID: 11400000, guid: c01363c1b0ed5be4388fa16c799ab83d, type: 2}
-      m_values: 030000000a000000
+      m_values: 050000000a000000
   - name: "\uCCA0 \uBCBD"
     type: "\uBC29\uBCBD"
     damage: 0
-    defence: 300
+    defence: 250
     rate: 0
     range: 0
     color: {r: 0.67058825, g: 0.67058825, b: 0.67058825, a: 1}
@@ -50,4 +50,4 @@ MonoBehaviour:
       m_keys:
       - {fileID: 11400000, guid: c01363c1b0ed5be4388fa16c799ab83d, type: 2}
       - {fileID: 11400000, guid: ced119c6f5cbef84784f570a0acb1477, type: 2}
-      m_values: 0500000008000000
+      m_values: 0800000008000000
