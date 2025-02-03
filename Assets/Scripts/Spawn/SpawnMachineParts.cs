@@ -6,9 +6,9 @@ using UnityEngine;
 public class SpawnMachineParts : MonoBehaviour
 {
     [SerializeField] private GameObject prefab;
+    [SerializeField] private RandomSpawner randomSpawner;
 
     private GameObject currentPart = null;
-    private RandomSpawner randomSpawner;
 
     private void Start()
     {
@@ -17,8 +17,7 @@ public class SpawnMachineParts : MonoBehaviour
 
     public void SpawnPart()
     {
-        GameObject part = Instantiate(prefab);
-        part.transform.position = randomSpawner.GetRandomSpawnPosition();
+        GameObject part = Instantiate(prefab, randomSpawner.GetRandomSpawnPosition(), Quaternion.identity);
 
         currentPart = part;
     }

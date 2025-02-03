@@ -13,7 +13,9 @@ public class ResourcePickUp : MonoBehaviour
     private void Start()
     {
         GetComponent<SpriteRenderer>().sprite = InventoryItem.Icon;
-        Invoke("DestroySelf", 30f);
+
+        if (!gameObject.CompareTag("Machine Part"))
+            Invoke("DestroySelf", 30f);
     }
 
     public void DestroyItem()

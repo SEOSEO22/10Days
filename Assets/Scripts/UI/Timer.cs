@@ -45,7 +45,14 @@ public class Timer : MonoBehaviour
         SetDayCount();
 
         if (timeInfo == (int)TimeInfo.Day)
+        {
             SoundManager.Instance.PlayBGM(SoundManager.EBgm.BGM_DAY);
+
+            if (5 < ((dayCount / 2) + 1) && ((dayCount / 2) + 1) <= 10)
+            {
+                spawnMachineParts.SpawnPart();
+            }
+        }
         else if (timeInfo == (int)TimeInfo.night)
             SoundManager.Instance.PlayBGM(SoundManager.EBgm.BGM_NIGHT);
     }

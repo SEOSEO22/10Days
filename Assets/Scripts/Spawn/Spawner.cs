@@ -41,7 +41,7 @@ public class Spawner : MonoBehaviour
 
                     for (int i = 0; i < numberOfTotalResource; i++)
                     {
-                        spawnManager.ResourceSpawn((int)Random.Range(0f, spawnManager.resourcePrefabs.Length));
+                        spawnManager.ResourceSpawn((i % spawnManager.resourcePrefabs.Length));
                     }
 
                     spawnAnimalOnce = true;

@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -178,8 +178,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  xPos: 0
-  yPos: 0.7
+  offset: {x: 0, y: -0.7, z: 0}
+  maxHP: 30
+  invincibleTime: 1.5
 --- !u!1 &1871424979091922116
 GameObject:
   m_ObjectHideFlags: 0
