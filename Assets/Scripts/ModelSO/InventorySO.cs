@@ -28,8 +28,6 @@ namespace Inventory.Model
 
                 foreach (var item in currentInventory)
                 {
-                    Debug.Log(item.Value.item);
-                    Debug.Log(item.Value.quantity);
                     inventoryItems[item.Key] = item.Value;
                 }
             }

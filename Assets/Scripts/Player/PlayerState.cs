@@ -71,12 +71,14 @@ public class PlayerState : MonoBehaviour
     {
         healthGauge.fillAmount = 1;
         currentHP = healthGauge.fillAmount;
+        DataManager.Instance.currentGameData.playerStatData.SetPlayerData(healthGauge.fillAmount, hungerGauge.fillAmount);
     }
 
     public void SetHungerFull()
     {
         hungerGauge.fillAmount = 1;
         currentHunger = hungerGauge.fillAmount;
+        DataManager.Instance.currentGameData.playerStatData.SetPlayerData(healthGauge.fillAmount, hungerGauge.fillAmount);
     }
 
     public void IncreaseHealthStat(float increaseNum)

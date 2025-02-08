@@ -35,15 +35,28 @@ public class PlayerMoving : MonoBehaviour
         bool hUp = Input.GetButtonUp("Horizontal");
         bool vUp = Input.GetButtonUp("Vertical");
 
+        Vector2 boxOffset = new Vector2(0, -1);
+
         if (hDown)
         {
             isHorizonMove = true;
-            toolCollider.offset = new Vector2((int)xAxis, 0) + Vector2.down;
+            toolCollider.offset = new Vector2((int)xAxis, 0) + boxOffset;
         }
         else if (vDown)
         {
             isHorizonMove = false;
-            toolCollider.offset = new Vector2(0, (int)yAxis) + Vector2.down;
+
+
+            if (yAxis <= 0)
+            {
+                boxOffset.y = -1f;
+            }
+            else
+            {
+                boxOffset.y = -1.2f;
+            }
+
+            toolCollider.offset = new Vector2(0, (int)yAxis) + boxOffset;
         }
         else if (hUp || vUp)
         {
