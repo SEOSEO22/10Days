@@ -42,4 +42,4 @@
 ## 게임 화면
 |시작 화면|
 |-|
-|<img src="./10Days/Assets/Sprites/Title.jpeg">|
+|<img src="./Assets/Sprite/Title.jpeg">|
